@@ -22,3 +22,5 @@ export const {
     },
   },
 })
+
+export type ThemeColors = keyof typeof theme.colors
