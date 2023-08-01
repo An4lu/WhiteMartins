@@ -6,8 +6,3 @@ export const StyledFlex = styled('div', {
   margin: '0 auto',
   marginTop: '36px',
 })
-
-export const Item = styled('div', {
-  display: 'flex',
-  color: '$green',
-})

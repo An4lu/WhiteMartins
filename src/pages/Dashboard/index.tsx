@@ -1,9 +1,12 @@
-import { Item, StyledFlex } from './styles'
+import { Text } from '../../components/Text'
+import { StyledFlex } from './styles'
 
 export const Dashboard = () => {
   return (
     <StyledFlex>
-      <Item>Tempo por abastecimento por planta</Item>
+      <Text css={{ fontWeight: '600', fontSize: '24px' }}>
+        Tempo por abastecimento por planta
+      </Text>
     </StyledFlex>
   )
 }

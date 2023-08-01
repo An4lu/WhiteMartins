@@ -5,11 +5,12 @@ export const globalStyles = globalCss({
     margin: '0px',
     padding: '0rem',
     boxSizing: 'border-box',
+    fontFamily: 'Inter',
   },
-  'body, input, textarea, button, select': {
+  'body, select': {
     fontFamily: 'Inter',
     '&::-webkit-scrollbar': {
-      width: '9px',
+      width: '6px',
     },
     '&::-webkit-scrollbar-track': {
       backgroundColor: '#ffffff',

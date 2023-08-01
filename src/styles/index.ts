@@ -19,6 +19,7 @@ export const {
       graydescription: '#556B82',
       white: '#FFFFFF',
       black: '#000000',
+      lowblack: '#1D2D3E',
     },
   },
 })
