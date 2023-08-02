@@ -14,7 +14,7 @@ export const ContainerCard = styled('div', {
 
 export const Title = styled('p', {
   fontWeight: '700',
-  fontSize: '16px',
+  fontSize: '18px',
   color: '$textblack',
 })
 
