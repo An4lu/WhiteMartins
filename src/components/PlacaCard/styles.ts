@@ -10,6 +10,8 @@ export const Container = styled('div', {
   height: '100%',
   margin: '10px 0px',
   padding: '3px',
+  borderBottom: '1px solid $green',
+  cursor: 'pointer',
 })
 
 export const FirstLine = styled('div', {

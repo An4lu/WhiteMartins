@@ -15,6 +15,7 @@ interface PlacaProps {
   driver: string
   order: number
   status?: 'Aguardando Cadastro' | 'Aguardando'
+  onClick?: () => void
 }
 
 export const PlacaCard = ({
@@ -23,9 +24,10 @@ export const PlacaCard = ({
   driver,
   order,
   status,
+  onClick,
 }: PlacaProps) => {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <FirstLine>
         <TextPlaca>{placa}</TextPlaca>
         <TempoPlaca>Tempo: {tempo}min</TempoPlaca>

@@ -17,6 +17,7 @@ export const {
       graytitle: '#6A6D70',
       graytext: '#1D2D3E',
       graydescription: '#556B82',
+      grayline: '#D2D2D2',
       white: '#FFFFFF',
       black: '#000000',
       lowblack: '#1D2D3E',
