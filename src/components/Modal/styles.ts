@@ -85,36 +85,68 @@ export const SecondLine = styled('div', {
   flexDirection: 'column',
   position: 'absolute',
   zIndex: 999,
-  marginTop: '-434px',
-  marginLeft: '340px',
+  marginTop: '-403px',
+  marginLeft: '322px',
 })
 
 export const ContainerStatus = styled('div', {
   display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
+  flexDirection: 'row',
+  alignItems: 'center',
   gap: '5px',
   padding: '10px 5px',
   fontWeight: '700',
+  fontSize: '14px',
 })
 
 export const ContainerPlaca = styled('div', {
   display: 'flex',
-  alignItems: 'center',
+  flexDirection: 'column',
   justifyContent: 'center',
-  width: '175px',
-  height: '90px',
+  width: '189px',
+  height: '69px',
+  gap: '1px',
+  color: '$blue',
+  border: '4px solid $blue',
+  borderRadius: '6px',
+  backgroundColor: '$white',
+  marginTop: '8px',
+})
+
+export const PlacaBrasil = styled('div', {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  width: '100%',
+  height: '100%',
+  backgroundColor: '$blue',
+  padding: '0px 2px',
   gap: '5px',
+})
+
+export const NumPlaca = styled('div', {
+  display: 'flex',
+  justifyContent: 'center',
+  fontSize: '37px',
+  fontWeight: '700',
+  letterSpacing: '0.5px',
+  fontFamily: "'Play', sans-serif",
+})
+
+export const TextBrasil = styled('p', {
   color: '$white',
-  fontSize: '34px',
-  fontWeight: '500',
-  border: '2px solid $green',
-  borderRadius: '4px',
-  backgroundColor: '#333333',
-  marginBottom: '12px',
+  fontWeight: '600',
+  fontSize: '12px',
+  letterSpacing: '0.5px',
+  fontFamily: "'Play', sans-serif",
+})
+
+export const Image = styled('img', {
+  width: '22px',
+  height: '14px',
 })
 
 export const PlacaItem = styled('div', {
   fontSize: '14px',
-  padding: '2px 0px',
+  padding: '4px 0px',
 })

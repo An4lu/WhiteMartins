@@ -22,6 +22,7 @@ export const {
       black: '#000000',
       textblack: '#303030',
       lowblack: '#1D2D3E',
+      blue: '#003599',
     },
   },
 })

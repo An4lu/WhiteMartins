@@ -1,4 +1,6 @@
 import { FC } from 'react'
+import mercosulSvg from '../../assets/img/mercosul.svg'
+import brasilPng from '../../assets/img/brasil.png'
 import {
   Overlay,
   Dialog,
@@ -14,6 +16,10 @@ import {
   ContainerPlaca,
   PlacaItem,
   ContainerStatus,
+  PlacaBrasil,
+  NumPlaca,
+  Image,
+  TextBrasil,
 } from './styles'
 import { FileText, X } from '@phosphor-icons/react'
 import { Status } from '../PlacaCard/styles'
@@ -119,7 +125,6 @@ export const Modal: FC<ModalProps> = ({
           </ContainerStatus>
         </TitleLine>
         <SecondLine>
-          <ContainerPlaca>{placa}</ContainerPlaca>
           <PlacaItem>
             <TitleDesc>
               Horário Entrada: <Description> {entrance}</Description>
@@ -130,6 +135,14 @@ export const Modal: FC<ModalProps> = ({
               Horário Saída: <Description> {exit}</Description>
             </TitleDesc>
           </PlacaItem>
+          <ContainerPlaca>
+            <PlacaBrasil>
+              <Image src={mercosulSvg} alt="Mercosul" />
+              <TextBrasil>BRASIL</TextBrasil>
+              <Image src={brasilPng} alt="Brasil" />
+            </PlacaBrasil>
+            <NumPlaca>{placa}</NumPlaca>
+          </ContainerPlaca>
         </SecondLine>
       </Dialog>
     </Overlay>
