@@ -8,7 +8,8 @@ export const ContainerCard = styled('div', {
   padding: '20px',
   width: '100%',
   gap: '1rem',
-  boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.25)',
+  boxShadow:
+    '0px 2px 4px 0px rgba(85, 107, 130, 0.16), 0px 0px 2px 0px rgba(85, 107, 130, 0.16)',
 })
 
 export const Title = styled('p', {
@@ -42,9 +43,10 @@ export const ContState = styled('div', {
   },
 })
 
-export const ContTime = styled('div', {
+export const ContCont = styled('div', {
   display: 'flex',
-  alignItems: 'end',
+  flexDirection: 'row',
+  alignItems: 'center',
   gap: '8px',
   marginTop: '4px',
 })
@@ -52,8 +54,4 @@ export const ContTime = styled('div', {
 export const Min = styled('p', {
   fontSize: '35px',
   fontWeight: '500',
-})
-
-export const M = styled('div', {
-  padding: '3px 0px',
 })

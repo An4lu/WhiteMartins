@@ -1,10 +1,18 @@
 import { Alarm } from '@phosphor-icons/react'
-import { ContainerCard, ContIcon, ContState, ContTime, M, Min, Title } from "./styles"
+import {
+  ContainerCard,
+  ContIcon,
+  ContState,
+  ContTime,
+  M,
+  Min,
+  Title,
+} from './styles'
 
 interface DashProps {
   texttitle: string
   timemin: number
-  state: 'green | yellow | red'
+  state: 'green' | 'yellow' | 'red'
 }
 
 export const DashboardCard = ({ texttitle, timemin, state }: DashProps) => {
