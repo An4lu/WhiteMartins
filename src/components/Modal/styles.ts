@@ -17,7 +17,7 @@ export const Dialog = styled('div', {
   backgroundColor: '$white',
   borderRadius: '8px',
   minHeight: '200px',
-  width: '550px',
+  width: '555px',
   position: 'relative',
 })
 
@@ -25,7 +25,7 @@ export const FirstLine = styled('div', {
   display: 'flex',
   justifyContent: 'space-between',
   cursor: 'pointer',
-  padding: '13px 40px',
+  padding: '10px 40px',
   width: '100%',
   height: '100%',
 })
@@ -33,7 +33,7 @@ export const FirstLine = styled('div', {
 export const TextPlaca = styled('span', {
   fontSize: '27px',
   fontWeight: '700',
-  color: '#333',
+  color: '$textlowgray',
 })
 
 export const Line = styled('div', {
@@ -56,7 +56,7 @@ export const ContainerText = styled('p', {
   gap: '5px',
   fontSize: '20px',
   fontWeight: '600',
-  color: '#333',
+  color: '$textlowgray',
 })
 
 export const ContainerItem = styled('div', {
@@ -64,7 +64,7 @@ export const ContainerItem = styled('div', {
   flexDirection: 'column',
   width: '100%',
   gap: '10px',
-  padding: '10px 33px',
+  padding: '10px 3px',
   fontSize: '14px',
 })
 
@@ -77,7 +77,7 @@ export const TitleDesc = styled('p', {
 
 export const Description = styled('p', {
   marginLeft: '5px',
-  color: '#333',
+  color: '$textlowgray',
 })
 
 export const SecondLine = styled('div', {
@@ -85,16 +85,18 @@ export const SecondLine = styled('div', {
   flexDirection: 'column',
   position: 'absolute',
   zIndex: 999,
-  marginTop: '-403px',
-  marginLeft: '322px',
+  marginTop: '-378px',
+  marginLeft: '324px',
 })
 
 export const ContainerStatus = styled('div', {
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
+  justifyContent: 'end',
   gap: '5px',
-  padding: '10px 5px',
+  padding: '10px 0px',
+  color: '$textlowgray',
   fontWeight: '700',
   fontSize: '14px',
 })
@@ -150,3 +152,18 @@ export const PlacaItem = styled('div', {
   fontSize: '14px',
   padding: '4px 0px',
 })
+
+export const ThirdLine = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '7px 40px',
+  margin: '10px 0px',
+})
+
+export const String = styled('span', {
+  color: '$textlowgray',
+  fontWeight: '700',
+  fontSize: '14px',
+})
+
+export const ContainerSelect = styled('div', {})

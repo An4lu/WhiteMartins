@@ -21,6 +21,7 @@ export const {
       white: '#FFFFFF',
       black: '#000000',
       textblack: '#303030',
+      textlowgray: '#333',
       lowblack: '#1D2D3E',
       blue: '#003599',
     },

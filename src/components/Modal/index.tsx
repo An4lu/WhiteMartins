@@ -20,6 +20,9 @@ import {
   NumPlaca,
   Image,
   TextBrasil,
+  ThirdLine,
+  String,
+  ContainerSelect,
 } from './styles'
 import { FileText, X } from '@phosphor-icons/react'
 import { Status } from '../PlacaCard/styles'
@@ -120,11 +123,11 @@ export const Modal: FC<ModalProps> = ({
               Controlador Saída: <Description> {controllerexited}</Description>
             </TitleDesc>
           </ContainerItem>
+        </TitleLine>
+        <SecondLine>
           <ContainerStatus>
             Status: <Status> {status}</Status>
           </ContainerStatus>
-        </TitleLine>
-        <SecondLine>
           <PlacaItem>
             <TitleDesc>
               Horário Entrada: <Description> {entrance}</Description>
@@ -144,6 +147,11 @@ export const Modal: FC<ModalProps> = ({
             <NumPlaca>{placa}</NumPlaca>
           </ContainerPlaca>
         </SecondLine>
+        <Line />
+        <ThirdLine>
+          <String>Mover para</String>
+          <ContainerSelect></ContainerSelect>
+        </ThirdLine>
       </Dialog>
     </Overlay>
   )
