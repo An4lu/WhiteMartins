@@ -20,6 +20,7 @@ export const {
       grayline: '#D2D2D2',
       white: '#FFFFFF',
       black: '#000000',
+      textblack: '#303030',
       lowblack: '#1D2D3E',
     },
   },

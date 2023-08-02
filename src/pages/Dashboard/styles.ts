@@ -6,3 +6,12 @@ export const StyledFlex = styled('div', {
   margin: '0 auto',
   marginTop: '36px',
 })
+
+export const FirstLine = styled('div', {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent:'space-between',
+  marginTop: '17px',
+  gap: '2rem',
+  alignItems: 'center',
+})
