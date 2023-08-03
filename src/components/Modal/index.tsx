@@ -23,6 +23,7 @@ import {
   ThirdLine,
   String,
   ContainerSelect,
+  LastLine,
 } from './styles'
 import { FileText, X } from '@phosphor-icons/react'
 import { Status } from '../PlacaCard/styles'
@@ -44,7 +45,8 @@ interface ModalProps {
   controllerexited: string
   entrance: string
   exit: string
-  status: string
+  status?: string
+  waittime: string
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -65,6 +67,7 @@ export const Modal: FC<ModalProps> = ({
   entrance,
   exit,
   status,
+  waittime,
 }) => {
   if (!isOpen) {
     return null
@@ -119,9 +122,16 @@ export const Modal: FC<ModalProps> = ({
               Controlador Carregamento:
               <Description> {controllerloading}</Description>
             </TitleDesc>
-            <TitleDesc>
-              Controlador Saída: <Description> {controllerexited}</Description>
-            </TitleDesc>
+            <LastLine>
+              <TitleDesc>
+                Controlador Saída:
+                <Description> {controllerexited}</Description>
+              </TitleDesc>
+              <TitleDesc>
+                Tempo de Espera:
+                <Description> {waittime}</Description>
+              </TitleDesc>
+            </LastLine>
           </ContainerItem>
         </TitleLine>
         <SecondLine>

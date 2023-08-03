@@ -5,11 +5,31 @@ import { Text } from '../../components/Text'
 import { ContainerFases, StyledFlex } from './styles'
 import { Modal } from '../../components/Modal'
 
+interface PlacaInfo {
+  placa: string
+  tempo: string
+  company: string
+  NF: number
+  order: number
+  driver: string
+  CNH: number
+  goal: string
+  finalweighing: string
+  controllerentry: string
+  controllerweighing: string
+  controllerloading: string
+  controllerexited: string
+  status?: string
+  entrance: string
+  exit: string
+  waittime: string
+}
+
 export const Kanban = () => {
   const [isModalOpen, setModalOpen] = useState(false)
-  const [selectedPlaca, setSelectedPlaca] = useState(null)
+  const [selectedPlaca, setSelectedPlaca] = useState<PlacaInfo | null>(null)
 
-  const handlePlacaClick = (placaInfo) => {
+  const handlePlacaClick = (placaInfo: PlacaInfo) => {
     setSelectedPlaca(placaInfo)
     setModalOpen(true)
   }
@@ -18,7 +38,7 @@ export const Kanban = () => {
     setModalOpen(false)
   }
 
-  const placasData = [
+  const placasData: PlacaInfo[] = [
     {
       placa: 'SF7SF6',
       tempo: '10',
@@ -36,6 +56,7 @@ export const Kanban = () => {
       status: 'Aguardando Cadastro',
       entrance: '12:23 am',
       exit: '3:30 pm',
+      waittime: '3 h',
     },
     {
       placa: 'OI9SD4',
@@ -54,6 +75,7 @@ export const Kanban = () => {
       status: 'Aguardando',
       entrance: '09:00 am',
       exit: '6:30 pm',
+      waittime: '10 min',
     },
   ]
 
@@ -115,6 +137,7 @@ export const Kanban = () => {
           entrance={selectedPlaca.entrance}
           exit={selectedPlaca.exit}
           status={selectedPlaca.status}
+          waittime={selectedPlaca.waittime}
         />
       )}
     </StyledFlex>

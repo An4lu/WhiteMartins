@@ -59,6 +59,12 @@ export const ContainerText = styled('p', {
   color: '$textlowgray',
 })
 
+export const LastLine = styled('div', {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+})
+
 export const ContainerItem = styled('div', {
   display: 'flex',
   flexDirection: 'column',
