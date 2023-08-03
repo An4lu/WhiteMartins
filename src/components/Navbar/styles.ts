@@ -34,7 +34,7 @@ export const NavList = styled('ul', {
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'row',
-  gap: '25px',
+  gap: '35px',
 })
 
 export const StyledNavLink = styled(NavLink, {
