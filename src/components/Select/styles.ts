@@ -1,34 +1,48 @@
 import { StylesConfig } from 'react-select'
+import { styled } from '../../styles'
 
 interface Option {
-  label: string
   value: string
 }
+
+export const ContainerSelect = styled('div', {
+  width: '100%',
+  gap: '10px',
+  padding: '10px 0px',
+})
 
 export const colorStyles: StylesConfig<Option> = {
   control: (provided) => ({
     ...provided,
     backgroundColor: 'white',
-    width: '457px',
-    height: '46px',
+    width: '100%',
+    height: '100%',
+    border: '1px solid #BBB',
+    fontSize: '14px',
     borderRadius: '4px',
-    borderStyle: 'none',
     cursor: 'pointer',
     zIndex: '99.9',
+  }),
+  menu: (provided) => ({
+    ...provided,
+    maxHeight: '65px',
+    overflowY: 'auto',
   }),
   multiValueLabel: (styles) => ({
     ...styles,
     color: 'white',
     fontFamily: 'Inter',
+    fontSize: '14px',
   }),
   option: (styles, { isSelected }) => ({
     ...styles,
     backgroundColor: 'transparent',
     cursor: 'pointer',
-    ':hover': {
-      backgroundColor: '#D3AB3C',
-      color: 'white',
+    fontSize: '14px',
+    '&:hover': {
+      backgroundColor: '$green',
+      color: '$white',
     },
-    color: isSelected ? '#111827' : '#111827',
+    color: isSelected ? '#333333' : '#333333',
   }),
 }

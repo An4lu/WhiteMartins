@@ -53,16 +53,21 @@ export const Status = styled(
     fontWeight: '300',
     borderRadius: '4px',
     padding: '4px',
-    backgroundColor: '#5899DA',
   },
   {
     variants: {
       status: {
-        'Aguardando Cadastro': {
-          backgroundColor: '#5899DA',
+        AguardandoCadastro: {
+          backgroundColor: '$bluecard',
         },
         Aguardando: {
-          backgroundColor: '#DA9E58',
+          backgroundColor: '$yellow',
+        },
+        Revisão: {
+          backgroundColor: '$red',
+        },
+        Liberado: {
+          backgroundColor: '$green',
         },
       },
     },

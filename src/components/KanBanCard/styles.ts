@@ -5,6 +5,7 @@ export const StyledCard = styled('div', {
   flexDirection: 'column',
   width: '195px',
   height: '100%',
+  minHeight: '120px',
   backgroundColor: '$grayback',
   borderRadius: '3px',
   borderTop: '2px solid $green',

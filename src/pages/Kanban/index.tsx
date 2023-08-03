@@ -53,7 +53,7 @@ export const Kanban = () => {
       controllerweighing: '08:39 am',
       controllerloading: '08:39 am',
       controllerexited: '08:39 am',
-      status: 'Aguardando Cadastro',
+      status: 'Revisão',
       entrance: '12:23 am',
       exit: '3:30 pm',
       waittime: '3 h',
@@ -72,7 +72,7 @@ export const Kanban = () => {
       controllerweighing: 'Y',
       controllerloading: 'Z',
       controllerexited: 'W',
-      status: 'Aguardando',
+      status: 'Liberado',
       entrance: '09:00 am',
       exit: '6:30 pm',
       waittime: '10 min',
@@ -103,19 +103,7 @@ export const Kanban = () => {
         <KanBanCard>Fila</KanBanCard>
         <KanBanCard>Carregamento</KanBanCard>
         <KanBanCard>Pesagem Final</KanBanCard>
-        <KanBanCard>
-          Saída
-          {placasData.map((placaInfo, index) => (
-            <PlacaCard
-              key={index}
-              placa={placaInfo.placa}
-              tempo={placaInfo.tempo}
-              driver={placaInfo.driver}
-              order={placaInfo.order}
-              onClick={() => handlePlacaClick(placaInfo)}
-            />
-          ))}
-        </KanBanCard>
+        <KanBanCard>Saída</KanBanCard>
       </ContainerFases>
 
       {isModalOpen && selectedPlaca && (

@@ -173,4 +173,31 @@ export const String = styled('span', {
   fontSize: '14px',
 })
 
-export const ContainerSelect = styled('div', {})
+export const ContainerSelect = styled('div', {
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  width: '100%',
+  height: '100%',
+  gap: '8px',
+})
+
+export const Button = styled('button', {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '20%',
+  height: '37px',
+  color: 'white',
+  fontSize: '15px',
+  fontWeight: '400',
+  border: 'none',
+  backgroundColor: '$green',
+  borderRadius: '4px',
+  cursor: 'pointer',
+  transition: 'background-color 0.3s, color 0.3s',
+  '&:hover': {
+    backgroundColor: '#009754',
+  },
+})

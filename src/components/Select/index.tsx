@@ -1,6 +1,6 @@
 import { useState, useEffect, forwardRef } from 'react'
 import ReactSelect from 'react-select/creatable'
-import { colorStyles } from './styles'
+import { ContainerSelect, colorStyles } from './styles'
 
 interface SelectProps {
   onValueChange: (value: string) => void
@@ -21,15 +21,17 @@ const Select = forwardRef<any, SelectProps>((props: SelectProps, ref: any) => {
   }
 
   return (
-    <ReactSelect
-      ref={ref}
-      isSearchable={false}
-      onChange={handleChange}
-      options={selectOptions}
-      styles={colorStyles}
-      placeholder="Selecione"
-      id={id}
-    />
+    <ContainerSelect>
+      <ReactSelect
+        ref={ref}
+        isSearchable={false}
+        onChange={handleChange}
+        options={selectOptions}
+        styles={colorStyles}
+        placeholder=""
+        id={id}
+      />
+    </ContainerSelect>
   )
 })
 

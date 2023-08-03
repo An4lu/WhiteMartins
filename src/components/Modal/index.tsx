@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import mercosulSvg from '../../assets/img/mercosul.svg'
 import brasilPng from '../../assets/img/brasil.png'
 import {
@@ -24,9 +24,11 @@ import {
   String,
   ContainerSelect,
   LastLine,
+  Button,
 } from './styles'
 import { FileText, X } from '@phosphor-icons/react'
 import { Status } from '../PlacaCard/styles'
+import Select from '../Select'
 
 interface ModalProps {
   isOpen: boolean
@@ -69,6 +71,30 @@ export const Modal: FC<ModalProps> = ({
   status,
   waittime,
 }) => {
+  const [selectedStatus, setSelectedStatus] = useState<{
+    value: string
+    label: string
+  } | null>(null)
+
+  const statusOptions = [
+    { value: 'Entrada', label: 'Entrada' },
+    { value: 'PesagemInicial', label: 'Pesagem Inicial' },
+    { value: 'Fila', label: 'Fila' },
+    { value: 'Carregamento', label: 'Carregamento' },
+    { value: 'PesagemFinal', label: 'Pesagem Final' },
+    { value: 'Saída', label: 'Saída' },
+  ]
+  const handleStatusChange = (value: string) => {
+    const selectedOption = statusOptions.find(
+      (option) => option.value === value,
+    )
+    if (selectedOption) {
+      setSelectedStatus(selectedOption)
+    } else {
+      setSelectedStatus(null)
+    }
+  }
+
   if (!isOpen) {
     return null
   }
@@ -160,7 +186,14 @@ export const Modal: FC<ModalProps> = ({
         <Line />
         <ThirdLine>
           <String>Mover para</String>
-          <ContainerSelect></ContainerSelect>
+          <ContainerSelect>
+            <Select
+              onValueChange={handleStatusChange}
+              id="status-select"
+              options={statusOptions}
+            />
+            <Button>Mover</Button>
+          </ContainerSelect>
         </ThirdLine>
       </Dialog>
     </Overlay>

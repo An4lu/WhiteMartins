@@ -24,6 +24,9 @@ export const {
       textlowgray: '#333',
       lowblack: '#1D2D3E',
       blue: '#003599',
+      bluecard: '#5899DA',
+      yellow: '#D8A800',
+      red: '#BA3535',
     },
   },
 })
