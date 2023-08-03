@@ -16,12 +16,45 @@ export const Title = styled('p', {
   fontWeight: '700',
   fontSize: '20px',
   color: '$green',
-  padding: '15px 0px 8px 20px',
+  padding: '12px 0px 8px 20px',
 })
 
 export const FirstLine = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  gap: '5px',
+  gap: '2px',
+  padding: '0px 0px 10px 0px',
+})
+
+export const ContainerSearch = styled('div', {
+  display: 'flex',
+  flexDirection: 'row',
+  width: '100%',
+  height: '100%',
+  padding: '12px 20px',
+  gap: '3rem',
+})
+
+export const SearchLeft = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  width: '50%',
+})
+
+export const SearchRight = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  width: '80%',
+})
+
+export const CheckboxItem = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '7px 10px',
+})
+
+export const ScrollContainer = styled('div', {
+  height: '150px',
+  overflowY: 'auto',
 })

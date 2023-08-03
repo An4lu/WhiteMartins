@@ -6,14 +6,12 @@ export const globalStyles = globalCss({
     padding: '0rem',
     boxSizing: 'border-box',
     fontFamily: 'Inter',
-  },
-  'body, select': {
-    fontFamily: 'Inter',
     '&::-webkit-scrollbar': {
-      width: '6px',
+      width: '7px',
     },
     '&::-webkit-scrollbar-track': {
-      backgroundColor: '#ffffff',
+      backgroundColor: '#D2D2D2',
+      borderRadius: '6px',
     },
     '&::-webkit-scrollbar-thumb': {
       backgroundColor: '$green',
