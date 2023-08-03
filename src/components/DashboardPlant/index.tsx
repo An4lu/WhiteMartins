@@ -27,6 +27,16 @@ export const DashboardPlant = () => {
   const [selectedStates, setSelectedStates] = useState<Record<string, boolean>>(
     {},
   )
+  const [searchValueLeft, setSearchValueLeft] = useState('')
+  const [searchValueRight, setSearchValueRight] = useState('')
+
+  const filteredStatesLeft = estadosBrasil.filter((estado) =>
+    estado.nome.toLowerCase().includes(searchValueLeft.toLowerCase()),
+  )
+
+  const filteredStatesRight = estadosBrasil.filter((estado) =>
+    estado.nome.toLowerCase().includes(searchValueRight.toLowerCase()),
+  )
 
   const handleCheckChange = (id: string, value: boolean) => {
     setSelectedStates({
@@ -42,9 +52,12 @@ export const DashboardPlant = () => {
         <Line />
         <ContainerSearch>
           <SearchLeft>
-            <InputSearch />
+            <InputSearch
+              value={searchValueLeft}
+              onChange={setSearchValueLeft}
+            />
             <ScrollContainer>
-              {estadosBrasil.map((estado) => (
+              {filteredStatesLeft.map((estado) => (
                 <CheckboxItem key={estado.id}>
                   <CheckBox
                     id={estado.id}
@@ -60,9 +73,11 @@ export const DashboardPlant = () => {
             </ScrollContainer>
           </SearchLeft>
           <SearchRight>
-            <InputSearch /> <ScrollContainer>
-              
-            </ScrollContainer>
+            <InputSearch
+              value={searchValueRight}
+              onChange={setSearchValueRight}
+            />
+            <ScrollContainer></ScrollContainer>
           </SearchRight>
         </ContainerSearch>
       </FirstLine>
