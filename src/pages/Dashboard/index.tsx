@@ -20,7 +20,7 @@ export const Dashboard = () => {
   return (
     <StyledFlex>
       <Text css={{ fontWeight: '600', fontSize: '24px' }}>
-        Tempo por abastecimento por planta
+        Cockpit das Plantas
       </Text>
       <FirstLine>
         <DashboardCard

@@ -112,8 +112,7 @@ export const ContainerPlaca = styled('div', {
   flexDirection: 'column',
   justifyContent: 'center',
   width: '189px',
-  height: '69px',
-  gap: '1px',
+  height: '64px',
   color: '$blue',
   border: '4px solid $blue',
   borderRadius: '6px',
@@ -128,23 +127,25 @@ export const PlacaBrasil = styled('div', {
   width: '100%',
   height: '100%',
   backgroundColor: '$blue',
-  padding: '0px 2px',
   gap: '5px',
 })
 
 export const NumPlaca = styled('div', {
   display: 'flex',
   justifyContent: 'center',
-  fontSize: '37px',
+  height: '150px',
+  fontSize: '36px',
   fontWeight: '700',
-  letterSpacing: '0.5px',
+  letterSpacing: '0.8px',
   fontFamily: "'Play', sans-serif",
 })
 
 export const TextBrasil = styled('p', {
+  display: 'flex',
+  justifyContent: 'center',
   color: '$white',
   fontWeight: '600',
-  fontSize: '12px',
+  fontSize: '14px',
   letterSpacing: '0.5px',
   fontFamily: "'Play', sans-serif",
 })
