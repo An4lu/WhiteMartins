@@ -3,13 +3,18 @@ import { DashboardCard } from '../../components/DashboardCard/index'
 import { Text } from '../../components/Text'
 import { Truck, Cylinder } from '@phosphor-icons/react'
 import {
+  ContDiv,
   ContainerLeft,
   ContainerRight,
+  ContainerVolume,
   FirstLine,
   FirstRow,
   SecondLine,
   StyledFlex,
+  TitleVolume,
 } from './styles'
+import { DashboardPlant } from '../../components/DashboardPlant'
+import { CardVolume } from '../../components/CardVolume'
 
 export const Dashboard = () => {
   return (
@@ -51,8 +56,36 @@ export const Dashboard = () => {
               icon={<Cylinder size={46} />}
             />
           </FirstRow>
+
+          <DashboardPlant />
         </ContainerLeft>
-        <ContainerRight>a</ContainerRight>
+        <ContainerRight>
+          <ContainerVolume>
+            <TitleVolume>Volume Total Carregado</TitleVolume>
+            <ContDiv>
+              <CardVolume
+                firstletter="O"
+                state="red"
+                element="Oxigênio"
+                number={5000}
+                totalm="Total ocupado médio é de 10.000m³"
+              />
+              <CardVolume
+                firstletter="N"
+                state="yellow"
+                element="Nitrogênio"
+                number={10500}
+                totalm="Total ocupado médio é de 15.000m³"
+              />
+              <CardVolume
+                firstletter="H"
+                state="green"
+                element="Hidrogênio"
+                number={8540}
+              />
+            </ContDiv>
+          </ContainerVolume>
+        </ContainerRight>
       </SecondLine>
     </StyledFlex>
   )
