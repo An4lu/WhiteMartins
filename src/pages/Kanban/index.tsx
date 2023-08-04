@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { KanBanCard } from '../../components/KanBanCard'
 import { PlacaCard } from '../../components/PlacaCard'
 import { Text } from '../../components/Text'
@@ -69,7 +69,16 @@ export const Kanban = () => {
     )
 
     setPlacasData(updatedPlacasData)
+
+    localStorage.setItem('placasData', JSON.stringify(updatedPlacasData))
   }
+
+  useEffect(() => {
+    const storedPlacasData = localStorage.getItem('placasData')
+    if (storedPlacasData) {
+      setPlacasData(JSON.parse(storedPlacasData))
+    }
+  }, [])
 
   const [placasData, setPlacasData] = useState<PlacaInfo[]>([
     {
