@@ -58,3 +58,9 @@ export const ScrollContainer = styled('div', {
   height: '150px',
   overflowY: 'auto',
 })
+
+export const ContInput = styled('div', {
+  display: 'flex',
+  flexDirection: 'row',
+  gap: '10px',
+})

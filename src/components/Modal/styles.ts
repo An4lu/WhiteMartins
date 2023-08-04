@@ -182,22 +182,3 @@ export const ContainerSelect = styled('div', {
   height: '100%',
   gap: '8px',
 })
-
-export const Button = styled('button', {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '20%',
-  height: '37px',
-  color: 'white',
-  fontSize: '15px',
-  fontWeight: '400',
-  border: 'none',
-  backgroundColor: '$green',
-  borderRadius: '4px',
-  cursor: 'pointer',
-  transition: 'background-color 0.3s, color 0.3s',
-  '&:hover': {
-    backgroundColor: '#009754',
-  },
-})

@@ -24,11 +24,11 @@ import {
   String,
   ContainerSelect,
   LastLine,
-  Button,
 } from './styles'
 import { FileText, X } from '@phosphor-icons/react'
 import { Status } from '../PlacaCard/styles'
 import Select from '../Select'
+import { Button } from '../Button'
 
 interface ModalProps {
   isOpen: boolean
@@ -192,7 +192,7 @@ export const Modal: FC<ModalProps> = ({
               id="status-select"
               options={statusOptions}
             />
-            <Button>Mover</Button>
+            <Button css={{ width: '70px' }}>Mover</Button>
           </ContainerSelect>
         </ThirdLine>
       </Dialog>
