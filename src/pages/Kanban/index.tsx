@@ -5,6 +5,8 @@ import { Text } from '../../components/Text'
 import { ContainerFases, StyledFlex } from './styles'
 import { Modal } from '../../components/Modal'
 
+type StatusType = 'AguardandoCadastro' | 'Aguardando' | 'Revisão' | 'Liberado'
+
 interface PlacaInfo {
   placa: string
   tempo: string
@@ -19,7 +21,7 @@ interface PlacaInfo {
   controllerweighing: string
   controllerloading: string
   controllerexited: string
-  status?: string
+  status?: StatusType
   entrance: string
   exit: string
   waittime: string
