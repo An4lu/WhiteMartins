@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { ContainerSelect, StyledSelect, ContOption, Dropdown } from './styles'
+import { CaretDown } from '@phosphor-icons/react'
 
 interface Option {
   value: string
@@ -36,7 +37,17 @@ const Select: React.FC<SelectProps> = ({
   return (
     <ContainerSelect ref={ref} id={id}>
       <StyledSelect onClick={handleToggle}>
-        {options.find((option) => option.value === selectedOption)?.label || ''}
+        <div>
+          {options.find((option) => option.value === selectedOption)?.label ||
+            ''}
+        </div>
+        <div>
+          <CaretDown
+            size={22}
+            color="#BBBBBB"
+            style={{ transform: isOpen ? 'rotate(180deg)' : '' }}
+          />
+        </div>
       </StyledSelect>
       {isOpen && (
         <Dropdown>
@@ -50,5 +61,4 @@ const Select: React.FC<SelectProps> = ({
     </ContainerSelect>
   )
 }
-
 export default Select

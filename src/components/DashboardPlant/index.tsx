@@ -4,7 +4,6 @@ import { Line } from '../Modal/styles'
 import { useState } from 'react'
 import {
   CheckboxItem,
-  ColumnCont,
   ContCheck,
   ContInput,
   ContainerAdress,
