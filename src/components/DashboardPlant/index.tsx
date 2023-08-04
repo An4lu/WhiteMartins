@@ -240,6 +240,7 @@ export const DashboardPlant = () => {
   const [selectedStates, setSelectedStates] = useState<Record<string, boolean>>(
     {},
   )
+  const [selectAllStates, setSelectAllStates] = useState(false)
   const [searchValueLeft, setSearchValueLeft] = useState('')
   const [searchValueRight, setSearchValueRight] = useState('')
   const [selectedCities, setSelectedCities] = useState<
@@ -315,6 +316,20 @@ export const DashboardPlant = () => {
     setSelectedAddresses(newSelectedAddresses)
   }
 
+  const handleToggleAllStates = (value: boolean) => {
+    setSelectAllStates(value)
+    const newSelectedStates: Record<string, boolean> = {}
+    estadosBrasil.forEach((estado) => {
+      newSelectedStates[estado.id] = value
+    })
+    setSelectedStates(newSelectedStates)
+    if (value) {
+      setSelectedCities(estadosBrasil.flatMap((estado) => estado.cidades))
+    } else {
+      setSelectedCities([])
+    }
+  }
+
   return (
     <ContainerCard>
       <FirstLine>
@@ -327,6 +342,15 @@ export const DashboardPlant = () => {
               onChange={setSearchValueLeft}
             />
             <ScrollContainer>
+              <CheckboxItem>
+                <CheckBox
+                  id="selectAll"
+                  onValueChange={handleToggleAllStates}
+                  checked={selectAllStates}
+                >
+                  Selecionar Todos
+                </CheckBox>
+              </CheckboxItem>
               {filteredStatesLeft.map((estado) => (
                 <CheckboxItem key={estado.id}>
                   <CheckBox
