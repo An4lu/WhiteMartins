@@ -4,16 +4,25 @@ import { Line } from '../Modal/styles'
 import { useState } from 'react'
 import {
   CheckboxItem,
+  ColumnCont,
+  ContCheck,
   ContInput,
+  ContainerAdress,
   ContainerCard,
   ContainerSearch,
+  DivCheck,
   FirstLine,
+  Item2Check,
+  ItemCheck,
   ScrollContainer,
   SearchLeft,
   SearchRight,
   Title,
+  TitleCheck,
+  TitleSecond,
 } from './styles'
 import { Button } from '../Button'
+import { MapPin } from '@phosphor-icons/react'
 
 const estadosBrasil = [
   {
@@ -234,10 +243,15 @@ export const DashboardPlant = () => {
   )
   const [searchValueLeft, setSearchValueLeft] = useState('')
   const [searchValueRight, setSearchValueRight] = useState('')
-  const [selectedCities, setSelectedCities] = useState<Array<{ nome: string; enderecos: Array<{ nome: string; endereco: string }> }>>([])
-  const [selectedAddresses, setSelectedAddresses] = useState<Record<string, boolean>>({});
-
-
+  const [selectedCities, setSelectedCities] = useState<
+    Array<{
+      nome: string
+      enderecos: Array<{ nome: string; endereco: string }>
+    }>
+  >([])
+  const [selectedAddresses, setSelectedAddresses] = useState<
+    Record<string, boolean>
+  >({})
 
   const filteredStatesLeft = estadosBrasil.filter((estado) =>
     estado.nome.toLowerCase().includes(searchValueLeft.toLowerCase()),
@@ -247,56 +261,60 @@ export const DashboardPlant = () => {
     setSelectedStates({
       ...selectedStates,
       [id]: value,
-    });
+    })
 
-    const selectedState = estadosBrasil.find((estado) => estado.id === id);
+    const selectedState = estadosBrasil.find((estado) => estado.id === id)
     if (selectedState) {
       if (value) {
-        setSelectedCities(selectedCities.concat(selectedState.cidades));
+        setSelectedCities(selectedCities.concat(selectedState.cidades))
       } else {
-        const citiesToRemove = new Set(selectedState.cidades.map((cidade) => cidade.nome));
-        setSelectedCities(selectedCities.filter((cidade) => !citiesToRemove.has(cidade.nome)));
-        const newSelectedAddresses = { ...selectedAddresses };
+        const citiesToRemove = new Set(
+          selectedState.cidades.map((cidade) => cidade.nome),
+        )
+        setSelectedCities(
+          selectedCities.filter((cidade) => !citiesToRemove.has(cidade.nome)),
+        )
+        const newSelectedAddresses = { ...selectedAddresses }
         selectedState.cidades.forEach((cidade) => {
           cidade.enderecos.forEach((endereco) => {
-            delete newSelectedAddresses[endereco.endereco];
-          });
-        });
-        setSelectedAddresses(newSelectedAddresses);
+            delete newSelectedAddresses[endereco.endereco]
+          })
+        })
+        setSelectedAddresses(newSelectedAddresses)
       }
     }
-  };
+  }
 
   const filteredAddresses = estadosBrasil
     .filter((estado) => selectedStates[estado.id])
     .flatMap((estado) =>
       estado.cidades.flatMap((cidade) =>
         cidade.enderecos.filter((endereco) =>
-          endereco.nome
-            .toLowerCase()
-            .includes(searchValueRight.toLowerCase()),
+          endereco.nome.toLowerCase().includes(searchValueRight.toLowerCase()),
         ),
       ),
     )
 
   const handleCheckChangeAll = (cidade: any, value: boolean) => {
-    const newSelectedAddresses = { ...selectedAddresses };
+    const newSelectedAddresses = { ...selectedAddresses }
     cidade.enderecos.forEach((endereco: any) => {
-      newSelectedAddresses[endereco.endereco] = value;
-    });
-    setSelectedAddresses(newSelectedAddresses);
-  };
+      newSelectedAddresses[endereco.endereco] = value
+    })
+    setSelectedAddresses(newSelectedAddresses)
+  }
 
   const handleToggleAll = () => {
-    const newSelectedAddresses = { ...selectedAddresses };
-    const markAll = !filteredAddresses.every((endereco) => selectedAddresses[endereco.endereco]);
+    const newSelectedAddresses = { ...selectedAddresses }
+    const markAll = !filteredAddresses.every(
+      (endereco) => selectedAddresses[endereco.endereco],
+    )
 
     filteredAddresses.forEach((endereco) => {
-      newSelectedAddresses[endereco.endereco] = markAll;
-    });
+      newSelectedAddresses[endereco.endereco] = markAll
+    })
 
-    setSelectedAddresses(newSelectedAddresses);
-  };
+    setSelectedAddresses(newSelectedAddresses)
+  }
 
   return (
     <ContainerCard>
@@ -340,37 +358,46 @@ export const DashboardPlant = () => {
             </ContInput>
             <ScrollContainer>
               {selectedCities.map((cidade, cityIndex) => (
-                <div key={cityIndex}>
-                  <h4 style={{ display: 'flex', gap: '10px', borderBottom: '1px solid black', paddingBottom: '5px', width: '90%', margin: '10px 0' }}>
+                <ContCheck key={cityIndex}>
+                  <TitleCheck>
                     <CheckBox
                       id={cityIndex.toString()}
-                      onValueChange={(value) => handleCheckChangeAll(cidade, value)}
+                      onValueChange={(value) =>
+                        handleCheckChangeAll(cidade, value)
+                      }
                     >
+                      <TitleSecond>{cidade.nome}</TitleSecond>
                     </CheckBox>
-                    {cidade.nome}
-                  </h4>
+                  </TitleCheck>
                   {cidade.enderecos
                     .filter((endereco) =>
-                      endereco.nome.toLowerCase().includes(searchValueRight.toLowerCase())
+                      endereco.nome
+                        .toLowerCase()
+                        .includes(searchValueRight.toLowerCase()),
                     )
                     .map((endereco, index) => (
                       <CheckboxItem key={index}>
-                        <CheckBox
-                          id={endereco.endereco}
-                          onValueChange={(value) => {
-                            setSelectedAddresses({
-                              ...selectedAddresses,
-                              [endereco.endereco]: value,
-                            });
-                          }}
-                          checked={selectedAddresses[endereco.endereco]}
-                        >
-                          {endereco.nome} - {endereco.endereco}
-                        </CheckBox>
+                        <DivCheck>
+                          <CheckBox
+                            id={endereco.endereco}
+                            onValueChange={(value) => {
+                              setSelectedAddresses({
+                                ...selectedAddresses,
+                                [endereco.endereco]: value,
+                              })
+                            }}
+                            checked={selectedAddresses[endereco.endereco]}
+                          >
+                            <ContainerAdress>
+                              <ItemCheck>{endereco.nome}</ItemCheck>
+                              <Item2Check>{endereco.endereco}</Item2Check>
+                            </ContainerAdress>
+                          </CheckBox>
+                          <MapPin size={20} color="#00AD6C" />
+                        </DivCheck>
                       </CheckboxItem>
                     ))}
-
-                </div>
+                </ContCheck>
               ))}
             </ScrollContainer>
           </SearchRight>

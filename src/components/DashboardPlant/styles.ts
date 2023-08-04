@@ -51,7 +51,7 @@ export const SearchRight = styled('div', {
 export const CheckboxItem = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  padding: '7px 10px',
+  padding: '5px 10px',
 })
 
 export const ScrollContainer = styled('div', {
@@ -63,4 +63,45 @@ export const ContInput = styled('div', {
   display: 'flex',
   flexDirection: 'row',
   gap: '10px',
+})
+
+export const ContCheck = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  marginBottom: '10px',
+})
+
+export const TitleCheck = styled('h4', {
+  display: 'flex',
+  gap: '10px',
+  borderBottom: '1px solid #D9D9D9',
+  paddingBottom: '10px',
+  width: '98%',
+  margin: '10px 0px',
+})
+
+export const ContainerAdress = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '0px 10px',
+})
+
+export const DivCheck = styled('div', {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+})
+
+export const ItemCheck = styled('div', {
+  color: '$green',
+})
+
+export const TitleSecond = styled('p', {
+  fontSize: '15px',
+  padding: '0px 8px',
+  color: '$textBlack',
+})
+
+export const Item2Check = styled('div', {
+  color: '$textBlack',
 })
