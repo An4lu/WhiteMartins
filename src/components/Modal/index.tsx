@@ -81,7 +81,7 @@ export const Modal: FC<ModalProps> = ({
     return null
   }
 
-  const [selectedStage, setSelectedStage] = useState<string>('');
+  const [selectedStage, setSelectedStage] = useState<string>('')
 
   const stageOptions = [
     { value: 'Entrada', label: 'Entrada' },
@@ -90,21 +90,21 @@ export const Modal: FC<ModalProps> = ({
     { value: 'Carregamento', label: 'Carregamento' },
     { value: 'Pesagem Final', label: 'Pesagem Final' },
     { value: 'Saída', label: 'Saída' },
-  ];
+  ]
 
   const handleStageChange = (value: string) => {
-    setSelectedStage(value);
-  };
+    setSelectedStage(value)
+  }
 
   const handleMoveToStage = () => {
     if (onStageChange && selectedStage) {
-      onStageChange(selectedStage);
+      onStageChange(selectedStage)
     }
 
     if (onClose) {
-      onClose();
+      onClose()
     }
-  };
+  }
   return (
     <Overlay onClick={onClose}>
       <Dialog onClick={(e) => e.stopPropagation()}>

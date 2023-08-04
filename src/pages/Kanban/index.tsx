@@ -25,13 +25,18 @@ export interface PlacaInfo {
   entrance: string
   exit: string
   waittime: string
-  stage: 'Entrada' | 'Pesagem Inicial' | 'Fila' | 'Carregamento' | 'Pesagem Final' | 'Saída';
+  stage:
+    | 'Entrada'
+    | 'Pesagem Inicial'
+    | 'Fila'
+    | 'Carregamento'
+    | 'Pesagem Final'
+    | 'Saída'
 }
 
 export const Kanban = () => {
   const [isModalOpen, setModalOpen] = useState(false)
   const [selectedPlaca, setSelectedPlaca] = useState<PlacaInfo | null>(null)
-
 
   const handlePlacaClick = (placaInfo: PlacaInfo) => {
     setSelectedPlaca(placaInfo)
@@ -43,14 +48,28 @@ export const Kanban = () => {
   }
 
   const handleStageChange = (newStage: string) => {
-    const updatedPlacasData = placasData.map(placaInfo =>
+    if (
+      ![
+        'Entrada',
+        'Pesagem Inicial',
+        'Fila',
+        'Carregamento',
+        'Pesagem Final',
+        'Saída',
+      ].includes(newStage)
+    ) {
+      console.error('Invalid stage:', newStage)
+      return
+    }
+
+    const updatedPlacasData = placasData.map((placaInfo) =>
       placaInfo.placa === selectedPlaca?.placa
         ? { ...placaInfo, stage: newStage as PlacaInfo['stage'] }
-        : placaInfo
-    );
-    setPlacasData(updatedPlacasData);
-  }
+        : placaInfo,
+    )
 
+    setPlacasData(updatedPlacasData)
+  }
 
   const [placasData, setPlacasData] = useState<PlacaInfo[]>([
     {
@@ -93,7 +112,7 @@ export const Kanban = () => {
       waittime: '10 min',
       stage: 'Entrada',
     },
-  ]);
+  ])
 
   return (
     <StyledFlex>
@@ -104,7 +123,7 @@ export const Kanban = () => {
         <KanBanCard>
           Entrada
           {placasData
-            .filter(placaInfo => placaInfo.stage === 'Entrada')
+            .filter((placaInfo) => placaInfo.stage === 'Entrada')
             .map((placaInfo, index) => (
               <PlacaCard
                 key={index}
@@ -120,7 +139,7 @@ export const Kanban = () => {
         <KanBanCard>
           Pesagem Inicial
           {placasData
-            .filter(placaInfo => placaInfo.stage === 'Pesagem Inicial')
+            .filter((placaInfo) => placaInfo.stage === 'Pesagem Inicial')
             .map((placaInfo, index) => (
               <PlacaCard
                 key={index}
@@ -136,7 +155,7 @@ export const Kanban = () => {
         <KanBanCard>
           Fila
           {placasData
-            .filter(placaInfo => placaInfo.stage === 'Fila')
+            .filter((placaInfo) => placaInfo.stage === 'Fila')
             .map((placaInfo, index) => (
               <PlacaCard
                 key={index}
@@ -148,12 +167,11 @@ export const Kanban = () => {
                 onClick={() => handlePlacaClick(placaInfo)}
               />
             ))}
-
         </KanBanCard>
         <KanBanCard>
           Carregamento
           {placasData
-            .filter(placaInfo => placaInfo.stage === 'Carregamento')
+            .filter((placaInfo) => placaInfo.stage === 'Carregamento')
             .map((placaInfo, index) => (
               <PlacaCard
                 key={index}
@@ -169,7 +187,7 @@ export const Kanban = () => {
         <KanBanCard>
           Pesagem Final
           {placasData
-            .filter(placaInfo => placaInfo.stage === 'Pesagem Final')
+            .filter((placaInfo) => placaInfo.stage === 'Pesagem Final')
             .map((placaInfo, index) => (
               <PlacaCard
                 key={index}
@@ -185,7 +203,7 @@ export const Kanban = () => {
         <KanBanCard>
           Saída
           {placasData
-            .filter(placaInfo => placaInfo.stage === 'Saída')
+            .filter((placaInfo) => placaInfo.stage === 'Saída')
             .map((placaInfo, index) => (
               <PlacaCard
                 key={index}
