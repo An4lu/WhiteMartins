@@ -295,14 +295,6 @@ export const DashboardPlant = () => {
       ),
     )
 
-  const handleCheckChangeAll = (cidade: any, value: boolean) => {
-    const newSelectedAddresses = { ...selectedAddresses }
-    cidade.enderecos.forEach((endereco: any) => {
-      newSelectedAddresses[endereco.endereco] = value
-    })
-    setSelectedAddresses(newSelectedAddresses)
-  }
-
   const handleToggleAll = () => {
     const newSelectedAddresses = { ...selectedAddresses }
     const markAll = !filteredAddresses.every(
@@ -314,6 +306,18 @@ export const DashboardPlant = () => {
     })
 
     setSelectedAddresses(newSelectedAddresses)
+
+    setSelectAllRight(markAll)
+  }
+
+  const handleCheckChangeAll = (cidade: any, value: boolean) => {
+    const newSelectedAddresses = { ...selectedAddresses }
+    cidade.enderecos.forEach((endereco: any) => {
+      newSelectedAddresses[endereco.endereco] = value
+    })
+    setSelectedAddresses(newSelectedAddresses)
+
+    setSelectAllRight(value)
   }
 
   const handleToggleAllStates = (value: boolean) => {
@@ -329,6 +333,8 @@ export const DashboardPlant = () => {
       setSelectedCities([])
     }
   }
+
+  const [selectAllRight, setSelectAllRight] = useState(false)
 
   return (
     <ContainerCard>
@@ -388,6 +394,7 @@ export const DashboardPlant = () => {
                       onValueChange={(value) =>
                         handleCheckChangeAll(cidade, value)
                       }
+                      checked={selectAllRight}
                     >
                       <TitleSecond>{cidade.nome}</TitleSecond>
                     </CheckBox>
