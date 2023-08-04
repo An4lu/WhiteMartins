@@ -77,11 +77,11 @@ export const Modal: FC<ModalProps> = ({
   waittime,
   onStageChange,
 }) => {
+  const [selectedStage, setSelectedStage] = useState<string>('')
+
   if (!isOpen) {
     return null
   }
-
-  const [selectedStage, setSelectedStage] = useState<string>('')
 
   const stageOptions = [
     { value: 'Entrada', label: 'Entrada' },
@@ -107,7 +107,7 @@ export const Modal: FC<ModalProps> = ({
   }
   return (
     <Overlay onClick={onClose}>
-      <Dialog onClick={(e) => e.stopPropagation()}>
+      <Dialog onClick={(e: React.MouseEvent) => e.stopPropagation()}>
         <FirstLine>
           <TextPlaca>{placa}</TextPlaca>
           <X onClick={onClose} size={27} color="#00AD6C" />
