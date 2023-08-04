@@ -1,40 +1,45 @@
-import React, { useState, useEffect } from 'react'
-import ReactSelect from 'react-select'
+// Código 3: Select.tsx
+
+import React from 'react';
+import ReactSelect from 'react-select';
+import { ContainerSelect } from './styles';
 
 interface Option {
-  value: string
-  label: string
+  value: string;
+  label: string;
 }
 
 interface SelectProps {
-  onValueChange: (value: string) => void
-  id: string
-  options: Option[]
+  onValueChange: (value: string) => void;
+  id: string;
+  options: Option[];
+  defaultValue?: Option | null;
 }
 
-const Select: React.FC<SelectProps> = (props) => {
-  const { options, onValueChange, id } = props
-  const [selectOptions, setSelectOptions] = useState(options)
-
-  useEffect(() => {
-    setSelectOptions(options)
-  }, [options])
-
+const Select: React.FC<SelectProps> = ({
+  options,
+  onValueChange,
+  id,
+  defaultValue,
+}) => {
   const handleChange = (selectedOption: Option | null) => {
     if (selectedOption) {
-      onValueChange(selectedOption.value)
+      onValueChange(selectedOption.value);
     }
-  }
+  };
 
   return (
-    <ReactSelect
-      isSearchable={false}
-      onChange={handleChange}
-      options={selectOptions}
-      placeholder=""
-      id={id}
-    />
-  )
-}
+    <ContainerSelect>
+      <ReactSelect
+        isSearchable={false}
+        onChange={handleChange}
+        options={options}
+        placeholder=""
+        id={id}
+        defaultValue={defaultValue}
+      />
+    </ContainerSelect>
+  );
+};
 
-export default Select
+export default Select;

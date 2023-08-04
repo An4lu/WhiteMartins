@@ -7,7 +7,7 @@ import { Modal } from '../../components/Modal'
 
 type StatusType = 'AguardandoCadastro' | 'Aguardando' | 'Revisão' | 'Liberado'
 
-interface PlacaInfo {
+export interface PlacaInfo {
   placa: string
   tempo: string
   company: string
@@ -25,11 +25,13 @@ interface PlacaInfo {
   entrance: string
   exit: string
   waittime: string
+  stage: 'Entrada' | 'Pesagem Inicial' | 'Fila' | 'Carregamento' | 'Pesagem Final' | 'Saída';
 }
 
 export const Kanban = () => {
   const [isModalOpen, setModalOpen] = useState(false)
   const [selectedPlaca, setSelectedPlaca] = useState<PlacaInfo | null>(null)
+
 
   const handlePlacaClick = (placaInfo: PlacaInfo) => {
     setSelectedPlaca(placaInfo)
@@ -40,7 +42,17 @@ export const Kanban = () => {
     setModalOpen(false)
   }
 
-  const placasData: PlacaInfo[] = [
+  const handleStageChange = (newStage: string) => {
+    const updatedPlacasData = placasData.map(placaInfo =>
+      placaInfo.placa === selectedPlaca?.placa
+        ? { ...placaInfo, stage: newStage as PlacaInfo['stage'] }
+        : placaInfo
+    );
+    setPlacasData(updatedPlacasData);
+  }
+
+
+  const [placasData, setPlacasData] = useState<PlacaInfo[]>([
     {
       placa: 'SF7SF6',
       tempo: '10',
@@ -59,6 +71,7 @@ export const Kanban = () => {
       entrance: '12:23 am',
       exit: '3:30 pm',
       waittime: '3 h',
+      stage: 'Entrada',
     },
     {
       placa: 'OI9SD4',
@@ -78,8 +91,9 @@ export const Kanban = () => {
       entrance: '09:00 am',
       exit: '6:30 pm',
       waittime: '10 min',
+      stage: 'Entrada',
     },
-  ]
+  ]);
 
   return (
     <StyledFlex>
@@ -89,23 +103,101 @@ export const Kanban = () => {
       <ContainerFases>
         <KanBanCard>
           Entrada
-          {placasData.map((placaInfo, index) => (
-            <PlacaCard
-              key={index}
-              placa={placaInfo.placa}
-              tempo={placaInfo.tempo}
-              driver={placaInfo.driver}
-              order={placaInfo.order}
-              status={placaInfo.status}
-              onClick={() => handlePlacaClick(placaInfo)}
-            />
-          ))}
+          {placasData
+            .filter(placaInfo => placaInfo.stage === 'Entrada')
+            .map((placaInfo, index) => (
+              <PlacaCard
+                key={index}
+                placa={placaInfo.placa}
+                tempo={placaInfo.tempo}
+                driver={placaInfo.driver}
+                order={placaInfo.order}
+                status={placaInfo.status}
+                onClick={() => handlePlacaClick(placaInfo)}
+              />
+            ))}
         </KanBanCard>
-        <KanBanCard>Pesagem Inicial</KanBanCard>
-        <KanBanCard>Fila</KanBanCard>
-        <KanBanCard>Carregamento</KanBanCard>
-        <KanBanCard>Pesagem Final</KanBanCard>
-        <KanBanCard>Saída</KanBanCard>
+        <KanBanCard>
+          Pesagem Inicial
+          {placasData
+            .filter(placaInfo => placaInfo.stage === 'Pesagem Inicial')
+            .map((placaInfo, index) => (
+              <PlacaCard
+                key={index}
+                placa={placaInfo.placa}
+                tempo={placaInfo.tempo}
+                driver={placaInfo.driver}
+                order={placaInfo.order}
+                status={placaInfo.status}
+                onClick={() => handlePlacaClick(placaInfo)}
+              />
+            ))}
+        </KanBanCard>
+        <KanBanCard>
+          Fila
+          {placasData
+            .filter(placaInfo => placaInfo.stage === 'Fila')
+            .map((placaInfo, index) => (
+              <PlacaCard
+                key={index}
+                placa={placaInfo.placa}
+                tempo={placaInfo.tempo}
+                driver={placaInfo.driver}
+                order={placaInfo.order}
+                status={placaInfo.status}
+                onClick={() => handlePlacaClick(placaInfo)}
+              />
+            ))}
+
+        </KanBanCard>
+        <KanBanCard>
+          Carregamento
+          {placasData
+            .filter(placaInfo => placaInfo.stage === 'Carregamento')
+            .map((placaInfo, index) => (
+              <PlacaCard
+                key={index}
+                placa={placaInfo.placa}
+                tempo={placaInfo.tempo}
+                driver={placaInfo.driver}
+                order={placaInfo.order}
+                status={placaInfo.status}
+                onClick={() => handlePlacaClick(placaInfo)}
+              />
+            ))}
+        </KanBanCard>
+        <KanBanCard>
+          Pesagem Final
+          {placasData
+            .filter(placaInfo => placaInfo.stage === 'Pesagem Final')
+            .map((placaInfo, index) => (
+              <PlacaCard
+                key={index}
+                placa={placaInfo.placa}
+                tempo={placaInfo.tempo}
+                driver={placaInfo.driver}
+                order={placaInfo.order}
+                status={placaInfo.status}
+                onClick={() => handlePlacaClick(placaInfo)}
+              />
+            ))}
+        </KanBanCard>
+        <KanBanCard>
+          Saída
+          {placasData
+            .filter(placaInfo => placaInfo.stage === 'Saída')
+            .map((placaInfo, index) => (
+              <PlacaCard
+                key={index}
+                placa={placaInfo.placa}
+                tempo={placaInfo.tempo}
+                driver={placaInfo.driver}
+                order={placaInfo.order}
+                status={placaInfo.status}
+                onClick={() => handlePlacaClick(placaInfo)}
+              />
+            ))}
+        </KanBanCard>
       </ContainerFases>
 
       {isModalOpen && selectedPlaca && (
@@ -128,6 +220,8 @@ export const Kanban = () => {
           exit={selectedPlaca.exit}
           status={selectedPlaca.status}
           waittime={selectedPlaca.waittime}
+          selectedPlaca={selectedPlaca}
+          onStageChange={handleStageChange}
         />
       )}
     </StyledFlex>

@@ -31,5 +31,4 @@ export const CheckboxItem = styled('div', {
   fontSize: '13px',
   fontWeight: '400',
   gap: '8px',
-  cursor: 'pointer',
 })
