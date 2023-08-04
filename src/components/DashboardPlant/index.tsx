@@ -17,7 +17,6 @@ import {
 } from './styles'
 import { Button } from '../Button'
 import { CaretDown } from '@phosphor-icons/react'
-import { IconContainer } from '../InputSearch/styles'
 
 const estadosBrasil = [
   {
@@ -291,7 +290,6 @@ export const DashboardPlant = () => {
             </ContInput>
             <ScrollContainer>
               <CheckboxCont>
-                <CheckBox >omg</CheckBox>
                 <IconCont>
                   <CaretDown size={20} color="#00ad0a" />
                 </IconCont>
