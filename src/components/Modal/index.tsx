@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import mercosulSvg from '../../assets/img/mercosul.svg'
 import brasilPng from '../../assets/img/brasil.png'
 import {
@@ -71,30 +71,6 @@ export const Modal: FC<ModalProps> = ({
   status,
   waittime,
 }) => {
-  const [selectedStatus, setSelectedStatus] = useState<{
-    value: string
-    label: string
-  } | null>(null)
-
-  const statusOptions = [
-    { value: 'Entrada', label: 'Entrada' },
-    { value: 'PesagemInicial', label: 'Pesagem Inicial' },
-    { value: 'Fila', label: 'Fila' },
-    { value: 'Carregamento', label: 'Carregamento' },
-    { value: 'PesagemFinal', label: 'Pesagem Final' },
-    { value: 'Saída', label: 'Saída' },
-  ]
-  const handleStatusChange = (value: string) => {
-    const selectedOption = statusOptions.find(
-      (option) => option.value === value,
-    )
-    if (selectedOption) {
-      setSelectedStatus(selectedOption)
-    } else {
-      setSelectedStatus(null)
-    }
-  }
-
   if (!isOpen) {
     return null
   }
@@ -188,9 +164,12 @@ export const Modal: FC<ModalProps> = ({
           <String>Mover para</String>
           <ContainerSelect>
             <Select
-              onValueChange={handleStatusChange}
-              id="status-select"
-              options={statusOptions}
+              onValueChange={(value) => console.log('Selecionado:', value)}
+              id="select"
+              options={[
+                { value: 'opcao1', label: 'Opção 1' },
+                { value: 'opcao2', label: 'Opção 2' },
+              ]}
             />
             <Button css={{ width: '70px' }}>Mover</Button>
           </ContainerSelect>

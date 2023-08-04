@@ -1,14 +1,18 @@
-import { useState, useEffect, forwardRef } from 'react'
-import ReactSelect from 'react-select/creatable'
-import { ContainerSelect, colorStyles } from './styles'
+import React, { useState, useEffect } from 'react'
+import ReactSelect from 'react-select'
+
+interface Option {
+  value: string
+  label: string
+}
 
 interface SelectProps {
   onValueChange: (value: string) => void
   id: string
-  options: { value: string; label: string }[]
+  options: Option[]
 }
 
-const Select = forwardRef<any, SelectProps>((props: SelectProps, ref: any) => {
+const Select: React.FC<SelectProps> = (props) => {
   const { options, onValueChange, id } = props
   const [selectOptions, setSelectOptions] = useState(options)
 
@@ -16,25 +20,21 @@ const Select = forwardRef<any, SelectProps>((props: SelectProps, ref: any) => {
     setSelectOptions(options)
   }, [options])
 
-  function handleChange(selectedOption: any) {
-    onValueChange(selectedOption.value)
+  const handleChange = (selectedOption: Option | null) => {
+    if (selectedOption) {
+      onValueChange(selectedOption.value)
+    }
   }
 
   return (
-    <ContainerSelect>
-      <ReactSelect
-        ref={ref}
-        isSearchable={false}
-        onChange={handleChange}
-        options={selectOptions}
-        styles={colorStyles}
-        placeholder=""
-        id={id}
-      />
-    </ContainerSelect>
+    <ReactSelect
+      isSearchable={false}
+      onChange={handleChange}
+      options={selectOptions}
+      placeholder=""
+      id={id}
+    />
   )
-})
-
-Select.displayName = 'Select'
+}
 
 export default Select
