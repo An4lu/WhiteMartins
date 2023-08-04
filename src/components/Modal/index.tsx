@@ -198,7 +198,10 @@ export const Modal: FC<ModalProps> = ({
               id="select"
               options={stageOptions}
             />
-            <Button css={{ width: '70px' }} onClick={handleMoveToStage}>
+            <Button
+              css={{ width: '60px', height: '28px' }}
+              onClick={handleMoveToStage}
+            >
               Mover
             </Button>
           </ContainerSelect>

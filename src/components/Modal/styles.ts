@@ -181,4 +181,5 @@ export const ContainerSelect = styled('div', {
   width: '100%',
   height: '100%',
   gap: '8px',
+  padding: '6px 0px',
 })
