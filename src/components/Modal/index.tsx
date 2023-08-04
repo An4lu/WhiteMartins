@@ -30,6 +30,8 @@ import { Status } from '../PlacaCard/styles'
 import Select from '../Select'
 import { Button } from '../Button'
 
+type StatusType = 'AguardandoCadastro' | 'Aguardando' | 'Revisão' | 'Liberado'
+
 interface ModalProps {
   isOpen: boolean
   onClose: () => void
@@ -47,7 +49,7 @@ interface ModalProps {
   controllerexited: string
   entrance: string
   exit: string
-  status?: string
+  status?: StatusType
   waittime: string
 }
 
