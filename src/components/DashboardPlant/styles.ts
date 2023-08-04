@@ -33,7 +33,7 @@ export const ContainerSearch = styled('div', {
   width: '100%',
   height: '100%',
   padding: '12px 20px',
-  gap: '3rem',
+  gap: '2rem',
 })
 
 export const SearchLeft = styled('div', {
@@ -45,7 +45,7 @@ export const SearchLeft = styled('div', {
 export const SearchRight = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  width: '80%',
+  width: '90%',
 })
 
 export const CheckboxItem = styled('div', {
