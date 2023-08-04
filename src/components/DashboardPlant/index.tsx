@@ -239,9 +239,9 @@ export const DashboardPlant = () => {
     estado.nome.toLowerCase().includes(searchValueLeft.toLowerCase()),
   )
 
-  const filteredStatesRight = estadosBrasil.filter((estado) =>
-    estado.nome.toLowerCase().includes(searchValueRight.toLowerCase()),
-  )
+  // const filteredStatesRight = estadosBrasil.filter((estado) =>
+  //   estado.nome.toLowerCase().includes(searchValueRight.toLowerCase()),
+  // )
 
   const handleCheckChange = (id: string, value: boolean) => {
     setSelectedStates({
