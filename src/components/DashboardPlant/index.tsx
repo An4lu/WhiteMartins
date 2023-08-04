@@ -3,17 +3,21 @@ import { InputSearch } from '../InputSearch'
 import { Line } from '../Modal/styles'
 import { useState } from 'react'
 import {
+  CheckboxCont,
   CheckboxItem,
   ContInput,
   ContainerCard,
   ContainerSearch,
   FirstLine,
+  IconCont,
   ScrollContainer,
   SearchLeft,
   SearchRight,
   Title,
 } from './styles'
 import { Button } from '../Button'
+import { CaretDown } from '@phosphor-icons/react'
+import { IconContainer } from '../InputSearch/styles'
 
 const estadosBrasil = [
   {
@@ -285,7 +289,14 @@ export const DashboardPlant = () => {
                 Marcar Todos
               </Button>
             </ContInput>
-            <ScrollContainer></ScrollContainer>
+            <ScrollContainer>
+              <CheckboxCont>
+                <CheckBox >omg</CheckBox>
+                <IconCont>
+                  <CaretDown size={20} color="#00ad0a" />
+                </IconCont>
+              </CheckboxCont>
+            </ScrollContainer>
           </SearchRight>
         </ContainerSearch>
       </FirstLine>

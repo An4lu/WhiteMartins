@@ -54,6 +54,20 @@ export const CheckboxItem = styled('div', {
   padding: '7px 10px',
 })
 
+export const CheckboxCont = styled('div', {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  padding: '10px 0px',
+  gap: '10px',
+})
+
+export const IconCont = styled('div', {
+  display: 'flex',
+  justifyContent: 'end',
+  gap: '10px',
+})
+
 export const ScrollContainer = styled('div', {
   height: '150px',
   overflowY: 'auto',

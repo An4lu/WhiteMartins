@@ -15,8 +15,12 @@ export const CheckBox = ({
   onValueChange,
   checked,
 }: LabelProps) => {
+  const handleClick = () => {
+    onValueChange(!checked)
+  }
+
   return (
-    <CheckboxItem>
+    <CheckboxItem onClick={handleClick}>
       <CheckboxRoot id={id} checked={checked} onCheckedChange={onValueChange}>
         <CheckboxIndicator>
           <Check size={12} color="#ffffff" />
