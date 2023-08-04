@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import mercosulSvg from '../../assets/img/mercosul.svg'
 import brasilPng from '../../assets/img/brasil.png'
 import {
@@ -29,6 +29,7 @@ import { FileText, X } from '@phosphor-icons/react'
 import { Status } from '../PlacaCard/styles'
 import Select from '../Select'
 import { Button } from '../Button'
+import { PlacaInfo } from '../../pages/Kanban'
 
 type StatusType = 'AguardandoCadastro' | 'Aguardando' | 'Revisão' | 'Liberado'
 
@@ -51,6 +52,8 @@ interface ModalProps {
   exit: string
   status?: StatusType
   waittime: string
+  selectedPlaca?: PlacaInfo
+  onStageChange?: (newStage: string) => void
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -72,11 +75,36 @@ export const Modal: FC<ModalProps> = ({
   exit,
   status,
   waittime,
+  onStageChange,
 }) => {
   if (!isOpen) {
     return null
   }
 
+  const [selectedStage, setSelectedStage] = useState<string>('');
+
+  const stageOptions = [
+    { value: 'Entrada', label: 'Entrada' },
+    { value: 'Pesagem Inicial', label: 'Pesagem Inicial' },
+    { value: 'Fila', label: 'Fila' },
+    { value: 'Carregamento', label: 'Carregamento' },
+    { value: 'Pesagem Final', label: 'Pesagem Final' },
+    { value: 'Saída', label: 'Saída' },
+  ];
+
+  const handleStageChange = (value: string) => {
+    setSelectedStage(value);
+  };
+
+  const handleMoveToStage = () => {
+    if (onStageChange && selectedStage) {
+      onStageChange(selectedStage);
+    }
+
+    if (onClose) {
+      onClose();
+    }
+  };
   return (
     <Overlay onClick={onClose}>
       <Dialog onClick={(e) => e.stopPropagation()}>
@@ -166,14 +194,13 @@ export const Modal: FC<ModalProps> = ({
           <String>Mover para</String>
           <ContainerSelect>
             <Select
-              onValueChange={(value) => console.log('Selecionado:', value)}
+              onValueChange={handleStageChange}
               id="select"
-              options={[
-                { value: 'opcao1', label: 'Opção 1' },
-                { value: 'opcao2', label: 'Opção 2' },
-              ]}
+              options={stageOptions}
             />
-            <Button css={{ width: '70px' }}>Mover</Button>
+            <Button css={{ width: '70px' }} onClick={handleMoveToStage}>
+              Mover
+            </Button>
           </ContainerSelect>
         </ThirdLine>
       </Dialog>
