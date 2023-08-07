@@ -48,9 +48,9 @@ export const Status = styled(
   'div',
   {
     gap: '2px',
-    fontSize: '9px',
     color: '$white',
-    fontWeight: '300',
+    fontSize: '10px',
+    fontWeight: '600',
     borderRadius: '4px',
     padding: '4px',
   },

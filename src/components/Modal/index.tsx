@@ -9,12 +9,10 @@ import {
   Line,
   TitleLine,
   Description,
-  ContainerItem,
   ContainerText,
   TitleDesc,
   SecondLine,
   ContainerPlaca,
-  PlacaItem,
   ContainerStatus,
   PlacaBrasil,
   NumPlaca,
@@ -23,15 +21,18 @@ import {
   ThirdLine,
   String,
   ContainerSelect,
-  LastLine,
+  Right,
+  Left,
+  ContainerP,
+  Status,
+  ContainerTime,
+  RightLine,
+  TitleTime,
 } from './styles'
 import { FileText, X } from '@phosphor-icons/react'
-import { Status } from '../PlacaCard/styles'
 import Select from '../Select'
 import { Button } from '../Button'
 import { PlacaInfo } from '../../pages/Kanban'
-
-type StatusType = 'AguardandoCadastro' | 'Aguardando' | 'Revisão' | 'Liberado'
 
 interface ModalProps {
   isOpen: boolean
@@ -43,14 +44,18 @@ interface ModalProps {
   driver: string
   CNH: number
   goal: string
+  product: string
+  inicialweighing: string
   finalweighing: string
+  measure: string
+  loadingvolume: string
   controllerentry: string
   controllerweighing: string
   controllerloading: string
   controllerexited: string
   entrance: string
   exit: string
-  status?: StatusType
+  status?: 'AguardandoCadastro' | 'Aguardando' | 'Liberado' | 'Revisão'
   waittime: string
   selectedPlaca?: PlacaInfo
   onStageChange?: (newStage: string) => void
@@ -66,7 +71,11 @@ export const Modal: FC<ModalProps> = ({
   driver,
   CNH,
   goal,
+  product,
+  inicialweighing,
   finalweighing,
+  measure,
+  loadingvolume,
   controllerentry,
   controllerweighing,
   controllerloading,
@@ -118,7 +127,22 @@ export const Modal: FC<ModalProps> = ({
             <FileText size={26} color="#00AD6C" />
             Detalhes
           </ContainerText>
-          <ContainerItem>
+        </TitleLine>
+        <ContainerP>
+          <ContainerPlaca>
+            <PlacaBrasil>
+              <Image src={mercosulSvg} alt="Mercosul" />
+              <TextBrasil>BRASIL</TextBrasil>
+              <Image src={brasilPng} alt="Brasil" />
+            </PlacaBrasil>
+            <NumPlaca>{placa}</NumPlaca>
+          </ContainerPlaca>
+          <ContainerStatus>
+            Status {status && <Status status={status}>{status}</Status>}
+          </ContainerStatus>
+        </ContainerP>
+        <SecondLine>
+          <Right>
             <TitleDesc>
               Empresa: <Description> {company}</Description>
             </TitleDesc>
@@ -135,60 +159,57 @@ export const Modal: FC<ModalProps> = ({
               Motorista: <Description> {driver}</Description>
             </TitleDesc>
             <TitleDesc>
-              CNH: <Description> {CNH}</Description>
+              CNH: <Description>{CNH}</Description>
             </TitleDesc>
             <TitleDesc>
               Objetivo: <Description> {goal}</Description>
             </TitleDesc>
             <TitleDesc>
-              Pesagem Final: <Description> {finalweighing}</Description>
+              Produto: <Description>{product}</Description>
+            </TitleDesc>
+          </Right>
+          <Left>
+            <TitleDesc>
+              Pesagem Inicial: <Description>{inicialweighing}</Description>
             </TitleDesc>
             <TitleDesc>
-              Controlador Entrada: <Description> {controllerentry}</Description>
+              Pesagem Final: <Description>{finalweighing}</Description>
+            </TitleDesc>
+            <TitleDesc>
+              Medida: <Description>{measure}</Description>
+            </TitleDesc>
+            <TitleDesc>
+              Volume de Carregamento: <Description>{loadingvolume}</Description>
+            </TitleDesc>
+            <TitleDesc>
+              Controlador Entrada: <Description>{controllerentry}</Description>
             </TitleDesc>
             <TitleDesc>
               Controlador Pesagem:
-              <Description> {controllerweighing}</Description>
+              <Description>{controllerweighing}</Description>
             </TitleDesc>
             <TitleDesc>
               Controlador Carregamento:
-              <Description> {controllerloading}</Description>
+              <Description>{controllerloading}</Description>
             </TitleDesc>
-            <LastLine>
-              <TitleDesc>
-                Controlador Saída:
-                <Description> {controllerexited}</Description>
-              </TitleDesc>
-              <TitleDesc>
-                Tempo de Espera:
-                <Description> {waittime}</Description>
-              </TitleDesc>
-            </LastLine>
-          </ContainerItem>
-        </TitleLine>
-        <SecondLine>
-          <ContainerStatus>
-            Status: <Status> {status}</Status>
-          </ContainerStatus>
-          <PlacaItem>
             <TitleDesc>
-              Horário Entrada: <Description> {entrance}</Description>
+              Controlador Saída: <Description>{controllerexited}</Description>
             </TitleDesc>
-          </PlacaItem>
-          <PlacaItem>
-            <TitleDesc>
-              Horário Saída: <Description> {exit}</Description>
-            </TitleDesc>
-          </PlacaItem>
-          <ContainerPlaca>
-            <PlacaBrasil>
-              <Image src={mercosulSvg} alt="Mercosul" />
-              <TextBrasil>BRASIL</TextBrasil>
-              <Image src={brasilPng} alt="Brasil" />
-            </PlacaBrasil>
-            <NumPlaca>{placa}</NumPlaca>
-          </ContainerPlaca>
+          </Left>
         </SecondLine>
+        <ContainerTime>
+          <RightLine>
+            <TitleTime>
+              Horário Entrada: <Description> {entrance}</Description>
+            </TitleTime>
+            <TitleTime>
+              Horário Saída: <Description> {exit}</Description>
+            </TitleTime>
+          </RightLine>
+          <TitleTime>
+            Tempo de Espera: <Description>{waittime}</Description>
+          </TitleTime>
+        </ContainerTime>
         <Line />
         <ThirdLine>
           <String>Mover para</String>
