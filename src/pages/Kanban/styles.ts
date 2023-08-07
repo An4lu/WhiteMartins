@@ -6,6 +6,7 @@ export const StyledFlex = styled('div', {
   minHeight: '500px',
   margin: '0 auto',
   marginTop: '36px',
+  marginBottom: '50px',
 })
 
 export const ContainerFases = styled('div', {

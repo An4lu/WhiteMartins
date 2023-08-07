@@ -17,7 +17,7 @@ export const Dialog = styled('div', {
   backgroundColor: '$white',
   borderRadius: '8px',
   minHeight: '200px',
-  width: '555px',
+  width: '700px',
   position: 'relative',
 })
 
