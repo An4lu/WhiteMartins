@@ -98,16 +98,7 @@ export const Kanban = () => {
     )
 
     setPlacasData(updatedPlacasData)
-
-    localStorage.setItem('placasData', JSON.stringify(updatedPlacasData))
   }
-
-  useEffect(() => {
-    const storedPlacasData = localStorage.getItem('placasData')
-    if (storedPlacasData) {
-      setPlacasData(JSON.parse(storedPlacasData))
-    }
-  }, [])
 
   const [placasData, setPlacasData] = useState<PlacaInfo[]>([
     {
@@ -276,7 +267,7 @@ export const Kanban = () => {
       entrance: '09:45 am',
       exit: '5:15 pm',
       waittime: '6 h 30 min',
-      stage: 'Pesagem Inicial',
+      stage: 'Entrada',
     },
     {
       placa: 'HJK234',
@@ -300,7 +291,7 @@ export const Kanban = () => {
       entrance: '11:20 am',
       exit: '7:00 pm',
       waittime: '7 h 40 min',
-      stage: 'Fila',
+      stage: 'Entrada',
     },
     {
       placa: 'MNB432',
@@ -324,7 +315,7 @@ export const Kanban = () => {
       entrance: '10:00 am',
       exit: '5:00 pm',
       waittime: '7 h',
-      stage: 'Fila',
+      stage: 'Entrada',
     },
     {
       placa: 'POI876',
@@ -348,7 +339,7 @@ export const Kanban = () => {
       entrance: '08:00 am',
       exit: '3:30 pm',
       waittime: '7 h 30 min',
-      stage: 'Carregamento',
+      stage: 'Entrada',
     },
     {
       placa: 'ZZZ999',
@@ -372,7 +363,7 @@ export const Kanban = () => {
       entrance: '09:30 am',
       exit: '5:30 pm',
       waittime: '8 h',
-      stage: 'Pesagem Final',
+      stage: 'Entrada',
     },
     {
       placa: 'ABC123',
@@ -396,7 +387,7 @@ export const Kanban = () => {
       entrance: '10:45 am',
       exit: '6:30 pm',
       waittime: '7 h 45 min',
-      stage: 'Saída',
+      stage: 'Entrada',
     },
   ])
 
@@ -422,7 +413,7 @@ export const Kanban = () => {
     const params = {
       TableName: 'license_plates',
       Item: {
-        id: '3',
+        id: '5',
         plate: 'SF7SF6',
         created_at: '2021-10-10',
         status: 'AguardandoCadastro',
