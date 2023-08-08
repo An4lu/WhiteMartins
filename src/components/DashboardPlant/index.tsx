@@ -1,7 +1,12 @@
+import estadosBrasil from './estadosBrasil.json'
 import { CheckBox } from '../Checkbox'
 import { InputSearch } from '../InputSearch'
 import { Line } from '../Modal/styles'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { DashboardCardSecond } from '../../components/DashboardCardSecond'
+import { DashboardCard } from '../../components/DashboardCard/index'
+import { Text } from '../../components/Text'
+import { Truck, Cylinder, MapPin } from '@phosphor-icons/react'
 import {
   CheckboxItem,
   ContCheck,
@@ -10,7 +15,7 @@ import {
   ContainerCard,
   ContainerSearch,
   DivCheck,
-  FirstLine,
+  FirstLinee,
   Item2Check,
   ItemCheck,
   ScrollContainer,
@@ -19,122 +24,18 @@ import {
   Title,
   TitleCheck,
   TitleSecond,
+  ContDiv,
+  ContainerLeft,
+  ContainerRight,
+  ContainerVolume,
+  FirstLine,
+  FirstRow,
+  SecondLine,
+  StyledFlex,
+  TitleVolume,
 } from './styles'
 import { Button } from '../Button'
-import { MapPin } from '@phosphor-icons/react'
-
-const estadosBrasil = [
-  {
-    id: 'sp',
-    nome: 'São Paulo',
-    tempomedio: 20,
-    cidades: [
-      {
-        nome: 'São Paulo',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua X, 123' },
-          { nome: 'Endereço 2', endereco: 'Avenida Y, 456' },
-          { nome: 'Endereço 3', endereco: 'Travessa Z, 789' },
-        ],
-      },
-      {
-        nome: 'Campinas',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua A, 101' },
-          { nome: 'Endereço 2', endereco: 'Avenida B, 202' },
-          { nome: 'Endereço 3', endereco: 'Travessa C, 303' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'rj',
-    nome: 'Rio de Janeiro',
-    tempomedio: 35,
-    cidades: [
-      {
-        nome: 'Rio de Janeiro',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua G, 707' },
-          { nome: 'Endereço 2', endereco: 'Avenida H, 808' },
-          { nome: 'Endereço 3', endereco: 'Travessa I, 909' },
-        ],
-      },
-      {
-        nome: 'Cabo Frio',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua M, 444' },
-          { nome: 'Endereço 2', endereco: 'Avenida N, 555' },
-          { nome: 'Endereço 3', endereco: 'Travessa O, 666' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'mg',
-    nome: 'Minas Gerais',
-    cidades: [
-      {
-        nome: 'Belo Horizonte',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua P, 777' },
-          { nome: 'Endereço 2', endereco: 'Avenida Q, 888' },
-          { nome: 'Endereço 3', endereco: 'Travessa R, 999' },
-        ],
-      },
-      {
-        nome: 'Juiz de Fora',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua V, 4004' },
-          { nome: 'Endereço 2', endereco: 'Avenida W, 5005' },
-          { nome: 'Endereço 3', endereco: 'Travessa X, 6006' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'rs',
-    nome: 'Rio Grande do Sul',
-    cidades: [
-      {
-        nome: 'Porto Alegre',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua Y, 7007' },
-          { nome: 'Endereço 2', endereco: 'Avenida Z, 8008' },
-          { nome: 'Endereço 3', endereco: 'Travessa A1, 9009' },
-        ],
-      },
-      {
-        nome: 'Caxias do Sul',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua B1, 1010' },
-          { nome: 'Endereço 2', endereco: 'Avenida C1, 2020' },
-          { nome: 'Endereço 3', endereco: 'Travessa D1, 3030' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'ba',
-    nome: 'Bahia',
-    cidades: [
-      {
-        nome: 'Salvador',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua H1, 7070' },
-          { nome: 'Endereço 2', endereco: 'Avenida I1, 8080' },
-        ],
-      },
-      {
-        nome: 'Vitória da Conquista',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua N1, 40040' },
-          { nome: 'Endereço 2', endereco: 'Avenida O1, 50050' },
-        ],
-      },
-    ],
-  },
-]
+import { CardVolume } from '../CardVolume'
 
 const initialSelectedStates: Record<string, boolean> = {}
 estadosBrasil.forEach((estado) => {
@@ -155,6 +56,72 @@ export const DashboardPlant = () => {
   const [selectedCities, setSelectedCities] = useState(
     estadosBrasil.flatMap((estado) => estado.cidades),
   )
+  const [averageData, setAverageData] = useState({
+    tempocadastro: 0,
+    tempocarregamento: 0,
+    tempoetapa: 0,
+    tempopesagem: 0,
+    carretas: 0,
+    cilindros: 0,
+  })
+
+  useEffect(() => {
+    calculateAverages()
+  }, [selectedStates])
+
+  const calculateAverages = () => {
+    const filteredStates = estadosBrasil.filter(
+      (estado) => selectedStates[estado.id],
+    )
+    const totalItems = filteredStates.length
+
+    if (totalItems === 0) {
+      setAverageData({
+        tempocadastro: 0,
+        tempocarregamento: 0,
+        tempoetapa: 0,
+        tempopesagem: 0,
+        carretas: 0,
+        cilindros: 0,
+      })
+      return
+    }
+
+    const totalValues = filteredStates.reduce(
+      (acc, estado) => ({
+        tempocadastro: acc.tempocadastro + (estado.tempocadastro || 0),
+        tempocarregamento:
+          acc.tempocarregamento + (estado.tempocarregamento || 0),
+        tempoetapa: acc.tempoetapa + (estado.tempoetapa || 0),
+        tempopesagem: acc.tempopesagem + (estado.tempopesagem || 0),
+        carretas: acc.carretas + (estado.carretas || 0),
+        cilindros: acc.cilindros + (estado.cilindros || 0),
+      }),
+      {
+        tempocadastro: 0,
+        tempocarregamento: 0,
+        tempoetapa: 0,
+        tempopesagem: 0,
+        carretas: 0,
+        cilindros: 0,
+      },
+    )
+
+    setAverageData({
+      tempocadastro: parseFloat(
+        (totalValues.tempocadastro / totalItems).toFixed(2),
+      ),
+      tempocarregamento: parseFloat(
+        (totalValues.tempocarregamento / totalItems).toFixed(2),
+      ),
+      tempoetapa: parseFloat((totalValues.tempoetapa / totalItems).toFixed(2)),
+      tempopesagem: parseFloat(
+        (totalValues.tempopesagem / totalItems).toFixed(2),
+      ),
+      carretas: totalValues.carretas,
+      cilindros: totalValues.cilindros,
+    })
+  }
 
   const [selectAllStates, setSelectAllStates] = useState(true)
   const [searchValueLeft, setSearchValueLeft] = useState('')
@@ -170,7 +137,7 @@ export const DashboardPlant = () => {
   const handleCheckChange = (id: string, value: boolean) => {
     setSelectedStates({
       ...selectedStates,
-      [id]: true,
+      [id]: value,
     })
 
     const selectedState = estadosBrasil.find((estado) => estado.id === id)
@@ -247,102 +214,175 @@ export const DashboardPlant = () => {
   const [selectAllRight, setSelectAllRight] = useState(true)
 
   return (
-    <ContainerCard>
+    <StyledFlex>
+      <Text css={{ fontWeight: '600', fontSize: '24px' }}>
+        Cockpit das Plantas
+      </Text>
       <FirstLine>
-        <Title>Plantas</Title>
-        <Line />
-        <ContainerSearch>
-          <SearchLeft>
-            <InputSearch
-              value={searchValueLeft}
-              onChange={setSearchValueLeft}
+        <DashboardCard
+          texttitle="Tempo Médio de Cadastro"
+          timemin={averageData.tempocadastro}
+          state="green"
+        />
+        <DashboardCard
+          texttitle="Tempo Médio de Carregamento"
+          timemin={averageData.tempocarregamento}
+          state="yellow"
+        />
+        <DashboardCard
+          texttitle="Tempo por Etapa"
+          timemin={averageData.tempoetapa}
+          state="green"
+        />
+        <DashboardCard
+          texttitle="Tempo Médio de Pesagem"
+          timemin={averageData.tempopesagem}
+          state="red"
+        />
+      </FirstLine>
+      <SecondLine>
+        <ContainerLeft>
+          <FirstRow>
+            <DashboardCardSecond
+              texttitle="Quantidade de Carretas"
+              num={averageData.carretas}
+              state="green"
+              icon={<Truck size={46} />}
             />
-            <ScrollContainer>
-              <CheckboxItem>
-                <CheckBox
-                  id="selectAll"
-                  onValueChange={handleToggleAllStates}
-                  checked={selectAllStates}
-                >
-                  Selecionar Todos
-                </CheckBox>
-              </CheckboxItem>
-              {filteredStatesLeft.map((estado) => (
-                <CheckboxItem key={estado.id}>
-                  <CheckBox
-                    id={estado.id}
-                    onValueChange={(value) =>
-                      handleCheckChange(estado.id, value)
-                    }
-                    checked={selectedStates[estado.id]}
-                  >
-                    {estado.nome}
-                  </CheckBox>
-                </CheckboxItem>
-              ))}
-            </ScrollContainer>
-          </SearchLeft>
-          <SearchRight>
-            <ContInput>
-              <InputSearch
-                value={searchValueRight}
-                onChange={setSearchValueRight}
-              />
-              <Button
-                css={{ fontSize: '12px', width: '150px', height: '30px' }}
-                onClick={handleToggleAll}
-              >
-                Marcar Todos
-              </Button>
-            </ContInput>
-            <ScrollContainer>
-              {selectedCities.map((cidade, cityIndex) => (
-                <ContCheck key={cityIndex}>
-                  <TitleCheck>
-                    <CheckBox
-                      id={cityIndex.toString()}
-                      onValueChange={(value) =>
-                        handleCheckChangeAll(cidade, value)
-                      }
-                      checked={selectAllRight}
-                    >
-                      <TitleSecond>{cidade.nome}</TitleSecond>
-                    </CheckBox>
-                  </TitleCheck>
-                  {cidade.enderecos
-                    .filter((endereco) =>
-                      endereco.nome
-                        .toLowerCase()
-                        .includes(searchValueRight.toLowerCase()),
-                    )
-                    .map((endereco, index) => (
-                      <CheckboxItem key={index}>
-                        <DivCheck>
-                          <CheckBox
-                            id={endereco.endereco}
-                            onValueChange={(value) => {
-                              setSelectedAddresses({
-                                ...selectedAddresses,
-                                [endereco.endereco]: value,
-                              })
-                            }}
-                            checked={selectedAddresses[endereco.endereco]}
-                          >
-                            <ContainerAdress>
-                              <ItemCheck>{endereco.nome}</ItemCheck>
-                              <Item2Check>{endereco.endereco}</Item2Check>
-                            </ContainerAdress>
-                          </CheckBox>
-                          <MapPin size={20} color="#00AD6C" />
-                        </DivCheck>
+            <DashboardCardSecond
+              texttitle="Quantidade de Cilindros"
+              num={averageData.cilindros}
+              state="green"
+              icon={<Cylinder size={46} />}
+            />
+          </FirstRow>
+
+          <ContainerCard>
+            <FirstLinee>
+              <Title>Plantas</Title>
+              <Line />
+              <ContainerSearch>
+                <SearchLeft>
+                  <InputSearch
+                    value={searchValueLeft}
+                    onChange={setSearchValueLeft}
+                  />
+                  <ScrollContainer>
+                    <CheckboxItem>
+                      <CheckBox
+                        id="selectAll"
+                        onValueChange={handleToggleAllStates}
+                        checked={selectAllStates}
+                      >
+                        Selecionar Todos
+                      </CheckBox>
+                    </CheckboxItem>
+                    {filteredStatesLeft.map((estado) => (
+                      <CheckboxItem key={estado.id}>
+                        <CheckBox
+                          id={estado.id}
+                          onValueChange={(value) =>
+                            handleCheckChange(estado.id, value)
+                          }
+                          checked={selectedStates[estado.id]}
+                        >
+                          {estado.nome}
+                        </CheckBox>
                       </CheckboxItem>
                     ))}
-                </ContCheck>
-              ))}
-            </ScrollContainer>
-          </SearchRight>
-        </ContainerSearch>
-      </FirstLine>
-    </ContainerCard>
+                  </ScrollContainer>
+                </SearchLeft>
+                <SearchRight>
+                  <ContInput>
+                    <InputSearch
+                      value={searchValueRight}
+                      onChange={setSearchValueRight}
+                    />
+                    <Button
+                      css={{ fontSize: '12px', width: '150px', height: '30px' }}
+                      onClick={handleToggleAll}
+                    >
+                      Marcar Todos
+                    </Button>
+                  </ContInput>
+                  <ScrollContainer>
+                    {selectedCities.map((cidade, cityIndex) => (
+                      <ContCheck key={cityIndex}>
+                        <TitleCheck>
+                          <CheckBox
+                            id={cityIndex.toString()}
+                            onValueChange={(value) =>
+                              handleCheckChangeAll(cidade, value)
+                            }
+                            checked={selectAllRight}
+                          >
+                            <TitleSecond>{cidade.nome}</TitleSecond>
+                          </CheckBox>
+                        </TitleCheck>
+                        {cidade.enderecos
+                          .filter((endereco) =>
+                            endereco.nome
+                              .toLowerCase()
+                              .includes(searchValueRight.toLowerCase()),
+                          )
+                          .map((endereco, index) => (
+                            <CheckboxItem key={index}>
+                              <DivCheck>
+                                <CheckBox
+                                  id={endereco.endereco}
+                                  onValueChange={(value) => {
+                                    setSelectedAddresses({
+                                      ...selectedAddresses,
+                                      [endereco.endereco]: value,
+                                    })
+                                  }}
+                                  checked={selectedAddresses[endereco.endereco]}
+                                >
+                                  <ContainerAdress>
+                                    <ItemCheck>{endereco.nome}</ItemCheck>
+                                    <Item2Check>{endereco.endereco}</Item2Check>
+                                  </ContainerAdress>
+                                </CheckBox>
+                                <MapPin size={20} color="#00AD6C" />
+                              </DivCheck>
+                            </CheckboxItem>
+                          ))}
+                      </ContCheck>
+                    ))}
+                  </ScrollContainer>
+                </SearchRight>
+              </ContainerSearch>
+            </FirstLinee>
+          </ContainerCard>
+        </ContainerLeft>
+        <ContainerRight>
+          <ContainerVolume>
+            <TitleVolume>Volume Total Carregado</TitleVolume>
+            <ContDiv>
+              <CardVolume
+                firstletter="O"
+                state="red"
+                element="Oxigênio"
+                number={5000}
+                totalm="Total ocupado médio é de 10.000m³"
+              />
+              <CardVolume
+                firstletter="N"
+                state="yellow"
+                element="Nitrogênio"
+                number={10500}
+                totalm="Total ocupado médio é de 15.000m³"
+              />
+              <CardVolume
+                firstletter="H"
+                state="green"
+                element="Hidrogênio"
+                number={8540}
+              />
+            </ContDiv>
+          </ContainerVolume>
+        </ContainerRight>
+      </SecondLine>
+    </StyledFlex>
   )
 }

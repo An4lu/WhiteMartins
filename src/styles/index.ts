@@ -13,7 +13,7 @@ export const {
   theme: {
     colors: {
       green: '#00AD6C',
-      grayback: '#DCDCDC',
+      grayback: '#F5F5F5',
       graytitle: '#6A6D70',
       graytext: '#1D2D3E',
       graydescription: '#556B82',

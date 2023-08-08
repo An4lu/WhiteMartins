@@ -1,0 +1,132 @@
+[
+    {
+      "id": "sp",
+      "nome": "São Paulo",
+      "tempocadastro": 20,
+      "tempocarregamento": 17,
+      "tempoetapa": 25,
+      "tempopesagem": 10,
+      "carretas": 46,
+      "cilindros": 34,
+      "cidades": [
+        {
+          "nome": "São Paulo",
+          "enderecos": [
+            { "nome": "Endereço 1", "endereco": "Rua X, 123" },
+            { "nome": "Endereço 2", "endereco": "Avenida Y, 456" }
+          ]
+        },
+        {
+          "nome": "Campinas",
+          "enderecos": [
+            { "nome": "Endereço 1", "endereco": "Rua A, 101" },
+            { "nome": "Endereço 2", "endereco": "Avenida B, 202" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rj",
+      "nome": "Rio de Janeiro",
+      "tempocadastro": 24,
+      "tempocarregamento": 15,
+      "tempoetapa": 37,
+      "tempopesagem": 5,
+      "carretas": 53,
+      "cilindros": 19,
+      "cidades": [
+        {
+          "nome": "Rio de Janeiro",
+          "enderecos": [
+            { "nome": "Endereço 1", "endereco": "Rua G, 707" },
+            { "nome": "Endereço 2", "endereco": "Avenida H, 808" }
+          ]
+        },
+        {
+          "nome": "Cabo Frio",
+          "enderecos": [
+            { "nome": "Endereço 1", "endereco": "Rua M, 444" },
+            { "nome": "Endereço 2", "endereco": "Avenida N, 555" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mg",
+      "nome": "Minas Gerais",
+      "tempocadastro": 42,
+      "tempocarregamento": 57,
+      "tempoetapa": 22,
+      "tempopesagem": 20,
+      "carretas": 29,
+      "cilindros": 38,
+      "cidades": [
+        {
+          "nome": "Belo Horizonte",
+          "enderecos": [
+            { "nome": "Endereço 1", "endereco": "Rua P, 777" },
+            { "nome": "Endereço 2", "endereco": "Avenida Q, 888" }
+          ]
+        },
+        {
+          "nome": "Juiz de Fora",
+          "enderecos": [
+            { "nome": "Endereço 1", "endereco": "Rua V, 4004" },
+            { "nome": "Endereço 2", "endereco": "Avenida W, 5005" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs",
+      "nome": "Rio Grande do Sul",
+      "tempocadastro": 33,
+      "tempocarregamento": 15,
+      "tempoetapa": 5,
+      "tempopesagem": 22,
+      "carretas": 40,
+      "cilindros": 14,
+      "cidades": [
+        {
+          "nome": "Porto Alegre",
+          "enderecos": [
+            { "nome": "Endereço 1", "endereco": "Rua Y, 7007" },
+            { "nome": "Endereço 2", "endereco": "Avenida Z, 8008" }
+          ]
+        },
+        {
+          "nome": "Caxias do Sul",
+          "enderecos": [
+            { "nome": "Endereço 1", "endereco": "Rua B1, 1010" },
+            { "nome": "Endereço 2", "endereco": "Avenida C1, 2020" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ba",
+      "nome": "Bahia",
+      "tempocadastro": 50,
+      "tempocarregamento": 38,
+      "tempoetapa": 20,
+      "tempopesagem": 18,
+      "carretas": 37,
+      "cilindros": 24,
+      "cidades": [
+        {
+          "nome": "Salvador",
+          "enderecos": [
+            { "nome": "Endereço 1", "endereco": "Rua H1, 7070" },
+            { "nome": "Endereço 2", "endereco": "Avenida I1, 8080" }
+          ]
+        },
+        {
+          "nome": "Vitória da Conquista",
+          "enderecos": [
+            { "nome": "Endereço 1", "endereco": "Rua N1, 40040" },
+            { "nome": "Endereço 2", "endereco": "Avenida O1, 50050" }
+          ]
+        }
+      ]
+    }
+  ]
