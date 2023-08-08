@@ -50,6 +50,7 @@ const estadosBrasil = [
   {
     id: 'rj',
     nome: 'Rio de Janeiro',
+    tempomedio: 35,
     cidades: [
       {
         nome: 'Rio de Janeiro',
@@ -57,14 +58,6 @@ const estadosBrasil = [
           { nome: 'Endereço 1', endereco: 'Rua G, 707' },
           { nome: 'Endereço 2', endereco: 'Avenida H, 808' },
           { nome: 'Endereço 3', endereco: 'Travessa I, 909' },
-        ],
-      },
-      {
-        nome: 'Niterói',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua J, 111' },
-          { nome: 'Endereço 2', endereco: 'Avenida K, 222' },
-          { nome: 'Endereço 3', endereco: 'Travessa L, 333' },
         ],
       },
       {
@@ -87,14 +80,6 @@ const estadosBrasil = [
           { nome: 'Endereço 1', endereco: 'Rua P, 777' },
           { nome: 'Endereço 2', endereco: 'Avenida Q, 888' },
           { nome: 'Endereço 3', endereco: 'Travessa R, 999' },
-        ],
-      },
-      {
-        nome: 'Uberlândia',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua S, 1001' },
-          { nome: 'Endereço 2', endereco: 'Avenida T, 2002' },
-          { nome: 'Endereço 3', endereco: 'Travessa U, 3003' },
         ],
       },
       {
@@ -127,14 +112,6 @@ const estadosBrasil = [
           { nome: 'Endereço 3', endereco: 'Travessa D1, 3030' },
         ],
       },
-      {
-        nome: 'Pelotas',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua E1, 4040' },
-          { nome: 'Endereço 2', endereco: 'Avenida F1, 5050' },
-          { nome: 'Endereço 3', endereco: 'Travessa G1, 6060' },
-        ],
-      },
     ],
   },
   {
@@ -146,15 +123,6 @@ const estadosBrasil = [
         enderecos: [
           { nome: 'Endereço 1', endereco: 'Rua H1, 7070' },
           { nome: 'Endereço 2', endereco: 'Avenida I1, 8080' },
-          { nome: 'Endereço 3', endereco: 'Travessa J1, 9090' },
-        ],
-      },
-      {
-        nome: 'Feira de Santana',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua K1, 10010' },
-          { nome: 'Endereço 2', endereco: 'Avenida L1, 20020' },
-          { nome: 'Endereço 3', endereco: 'Travessa M1, 30030' },
         ],
       },
       {
@@ -162,89 +130,38 @@ const estadosBrasil = [
         enderecos: [
           { nome: 'Endereço 1', endereco: 'Rua N1, 40040' },
           { nome: 'Endereço 2', endereco: 'Avenida O1, 50050' },
-          { nome: 'Endereço 3', endereco: 'Travessa P1, 60060' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'pr',
-    nome: 'Paraná',
-    cidades: [
-      {
-        nome: 'Curitiba',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua Q1, 70070' },
-          { nome: 'Endereço 2', endereco: 'Avenida R1, 80080' },
-          { nome: 'Endereço 3', endereco: 'Travessa S1, 90090' },
-        ],
-      },
-      {
-        nome: 'Londrina',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua T1, 100100' },
-          { nome: 'Endereço 2', endereco: 'Avenida U1, 200200' },
-          { nome: 'Endereço 3', endereco: 'Travessa V1, 300300' },
-        ],
-      },
-      {
-        nome: 'Maringá',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua W1, 400400' },
-          { nome: 'Endereço 2', endereco: 'Avenida X1, 500500' },
-          { nome: 'Endereço 3', endereco: 'Travessa Y1, 600600' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'pe',
-    nome: 'Pernambuco',
-    cidades: [
-      {
-        nome: 'Recife',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua Z1, 700700' },
-          { nome: 'Endereço 2', endereco: 'Avenida A2, 800800' },
-          { nome: 'Endereço 3', endereco: 'Travessa B2, 900900' },
-        ],
-      },
-      {
-        nome: 'Olinda',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua C2, 1001000' },
-          { nome: 'Endereço 2', endereco: 'Avenida D2, 2002000' },
-          { nome: 'Endereço 3', endereco: 'Travessa E2, 3003000' },
-        ],
-      },
-      {
-        nome: 'Caruaru',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua F2, 4004000' },
-          { nome: 'Endereço 2', endereco: 'Avenida G2, 5005000' },
-          { nome: 'Endereço 3', endereco: 'Travessa H2, 6006000' },
         ],
       },
     ],
   },
 ]
 
+const initialSelectedStates: Record<string, boolean> = {}
+estadosBrasil.forEach((estado) => {
+  initialSelectedStates[estado.id] = true
+})
+
+const initialSelectedAddresses: Record<string, boolean> = {}
+estadosBrasil.forEach((estado) => {
+  estado.cidades.forEach((cidade) => {
+    cidade.enderecos.forEach((endereco) => {
+      initialSelectedAddresses[endereco.endereco] = true
+    })
+  })
+})
+
 export const DashboardPlant = () => {
-  const [selectedStates, setSelectedStates] = useState<Record<string, boolean>>(
-    {},
+  const [selectedStates, setSelectedStates] = useState(initialSelectedStates)
+  const [selectedCities, setSelectedCities] = useState(
+    estadosBrasil.flatMap((estado) => estado.cidades),
   )
-  const [selectAllStates, setSelectAllStates] = useState(false)
+
+  const [selectAllStates, setSelectAllStates] = useState(true)
   const [searchValueLeft, setSearchValueLeft] = useState('')
   const [searchValueRight, setSearchValueRight] = useState('')
-  const [selectedCities, setSelectedCities] = useState<
-    Array<{
-      nome: string
-      enderecos: Array<{ nome: string; endereco: string }>
-    }>
-  >([])
-  const [selectedAddresses, setSelectedAddresses] = useState<
-    Record<string, boolean>
-  >({})
+  const [selectedAddresses, setSelectedAddresses] = useState(
+    initialSelectedAddresses,
+  )
 
   const filteredStatesLeft = estadosBrasil.filter((estado) =>
     estado.nome.toLowerCase().includes(searchValueLeft.toLowerCase()),
@@ -253,7 +170,7 @@ export const DashboardPlant = () => {
   const handleCheckChange = (id: string, value: boolean) => {
     setSelectedStates({
       ...selectedStates,
-      [id]: value,
+      [id]: true,
     })
 
     const selectedState = estadosBrasil.find((estado) => estado.id === id)
@@ -327,7 +244,7 @@ export const DashboardPlant = () => {
     }
   }
 
-  const [selectAllRight, setSelectAllRight] = useState(false)
+  const [selectAllRight, setSelectAllRight] = useState(true)
 
   return (
     <ContainerCard>
