@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.386.0",
+    "@aws-sdk/lib-dynamodb": "^3.386.0",
     "@phosphor-icons/react": "^2.0.10",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@stitches/react": "^1.2.8",

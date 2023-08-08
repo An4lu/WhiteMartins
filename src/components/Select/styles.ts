@@ -22,10 +22,12 @@ export const colorStyles: StylesConfig<Option> = {
     borderRadius: '4px',
     cursor: 'pointer',
     zIndex: '99.9',
+    // maxHeight: '65px',
+    // overflowY: 'auto',
   }),
   menu: (provided) => ({
     ...provided,
-    maxHeight: '65px',
+    height: '65px',
     overflowY: 'auto',
   }),
   multiValueLabel: (styles) => ({

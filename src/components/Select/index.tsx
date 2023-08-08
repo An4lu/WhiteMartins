@@ -21,17 +21,17 @@ const Select = forwardRef<any, SelectProps>((props: SelectProps, ref: any) => {
   }
 
   return (
-    <ContainerSelect>
-      <ReactSelect
-        ref={ref}
-        isSearchable={false}
-        onChange={handleChange}
-        options={selectOptions}
-        styles={colorStyles}
-        placeholder=""
-        id={id}
-      />
-    </ContainerSelect>
+    // <ContainerSelect>
+    <ReactSelect
+      ref={ref}
+      isSearchable={false}
+      onChange={handleChange}
+      options={selectOptions}
+      styles={colorStyles}
+      placeholder=""
+      id={id}
+    />
+    // </ContainerSelect>
   )
 })
 

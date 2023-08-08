@@ -186,14 +186,14 @@ export const Modal: FC<ModalProps> = ({
         <Line />
         <ThirdLine>
           <String>Mover para</String>
-          <ContainerSelect>
-            <Select
-              onValueChange={handleStatusChange}
-              id="status-select"
-              options={statusOptions}
-            />
-            <Button css={{ width: '70px' }}>Mover</Button>
-          </ContainerSelect>
+          {/* <ContainerSelect> */}
+          <Select
+            onValueChange={handleStatusChange}
+            id="status-select"
+            options={statusOptions}
+          />
+          <Button css={{ width: '70px' }}>Mover</Button>
+          {/* </ContainerSelect> */}
         </ThirdLine>
       </Dialog>
     </Overlay>

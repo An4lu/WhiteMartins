@@ -1,9 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { KanBanCard } from '../../components/KanBanCard'
 import { PlacaCard } from '../../components/PlacaCard'
 import { Text } from '../../components/Text'
 import { ContainerFases, StyledFlex } from './styles'
 import { Modal } from '../../components/Modal'
+
+import {
+  DynamoDBClient,
+  ScanCommand,
+  ScanCommandInput,
+} from '@aws-sdk/client-dynamodb'
+
+import { DynamoDBDocument, PutCommand } from '@aws-sdk/lib-dynamodb'
 
 interface PlacaInfo {
   placa: string
@@ -19,11 +27,28 @@ interface PlacaInfo {
   controllerweighing: string
   controllerloading: string
   controllerexited: string
-  status?: string
+  status: 'AguardandoCadastro' | 'Aguardando' | 'Liberado' | 'Revisão'
   entrance: string
   exit: string
   waittime: string
 }
+
+interface Parameter {
+  id: string
+  plate: string
+  created_at: string
+  status: string
+}
+
+const client = new DynamoDBClient({
+  region: import.meta.env.VITE_REGION,
+  credentials: {
+    accessKeyId: import.meta.env.VITE_ACCESS_KEY_ID,
+    secretAccessKey: import.meta.env.VITE_SECRET_ACCESS_KEY,
+  },
+})
+
+const ddbDocClient = DynamoDBDocument.from(client)
 
 export const Kanban = () => {
   const [isModalOpen, setModalOpen] = useState(false)
@@ -79,11 +104,49 @@ export const Kanban = () => {
     },
   ]
 
+  useEffect(() => {
+    const getPlacas = async () => {
+      const params: ScanCommandInput = {
+        TableName: import.meta.env.VITE_TABLE_LICENSE_PLATES,
+      }
+
+      const command = new ScanCommand(params)
+
+      const response = await ddbDocClient.send(command)
+
+      const parameters = response.Items as unknown as Parameter[]
+
+      console.log(parameters)
+    }
+
+    getPlacas()
+  }, [])
+
+  async function createPlate() {
+    const params = {
+      TableName: 'license_plates',
+      Item: {
+        id: '3',
+        plate: 'SF7SF6',
+        created_at: '2021-10-10',
+        status: 'AguardandoCadastro',
+      },
+    }
+
+    try {
+      const data = await ddbDocClient.send(new PutCommand(params))
+      console.log('Success', data)
+    } catch (err) {
+      console.log('Error', err)
+    }
+  }
+
   return (
     <StyledFlex>
       <Text css={{ fontWeight: '600', fontSize: '24px' }}>
         Acompanhamento Fases de Abastecimento
       </Text>
+      <button onClick={createPlate}>Criar placa</button>
       <ContainerFases>
         <KanBanCard>
           Entrada
