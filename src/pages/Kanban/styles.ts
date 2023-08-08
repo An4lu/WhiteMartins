@@ -9,6 +9,8 @@ export const StyledFlex = styled('div', {
   marginBottom: '50px',
 })
 
+export const ContainerText = styled('div', {})
+
 export const ContainerFases = styled('div', {
   display: 'flex',
   flexDirection: 'row',

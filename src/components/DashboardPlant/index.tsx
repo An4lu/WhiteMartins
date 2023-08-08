@@ -27,6 +27,7 @@ const estadosBrasil = [
   {
     id: 'sp',
     nome: 'São Paulo',
+    tempomedio: 20,
     cidades: [
       {
         nome: 'São Paulo',
@@ -42,14 +43,6 @@ const estadosBrasil = [
           { nome: 'Endereço 1', endereco: 'Rua A, 101' },
           { nome: 'Endereço 2', endereco: 'Avenida B, 202' },
           { nome: 'Endereço 3', endereco: 'Travessa C, 303' },
-        ],
-      },
-      {
-        nome: 'Santos',
-        enderecos: [
-          { nome: 'Endereço 1', endereco: 'Rua D, 404' },
-          { nome: 'Endereço 2', endereco: 'Avenida E, 505' },
-          { nome: 'Endereço 3', endereco: 'Travessa F, 606' },
         ],
       },
     ],

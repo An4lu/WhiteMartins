@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { KanBanCard } from '../../components/KanBanCard'
 import { PlacaCard } from '../../components/PlacaCard'
 import { Text } from '../../components/Text'
-import { ContainerFases, StyledFlex } from './styles'
+import { ContainerFases, ContainerText, StyledFlex } from './styles'
 import { Modal } from '../../components/Modal'
 
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
@@ -10,8 +10,8 @@ import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import {
   ScanCommandInput,
   DynamoDBDocument,
-  PutCommand,
   ScanCommand,
+  // PutCommand,
 } from '@aws-sdk/lib-dynamodb'
 
 type StatusType =
@@ -179,31 +179,33 @@ export const Kanban = () => {
     getPlacas()
   }, [])
 
-  async function createPlate() {
-    const params = {
-      TableName: 'license_plates',
-      Item: {
-        id: '6',
-        plate: 'O9S8DF',
-        created_at: '2021-10-10',
-        status: 'inicial',
-      },
-    }
+  // async function createPlate() {
+  //   const params = {
+  //     TableName: 'license_plates',
+  //     Item: {
+  //       id: '4',
+  //       plate: 'PA8AS2',
+  //       created_at: '2021-10-10',
+  //       status: 'AguardandoCadastro',
+  //     },
+  //   }
 
-    try {
-      const data = await ddbDocClient.send(new PutCommand(params))
-      console.log('Success', data)
-    } catch (err) {
-      console.log('Error', err)
-    }
-  }
+  //   try {
+  //     const data = await ddbDocClient.send(new PutCommand(params))
+  //     console.log('Success', data)
+  //   } catch (err) {
+  //     console.log('Error', err)
+  //   }
+  // }
 
   return (
     <StyledFlex>
-      <Text css={{ fontWeight: '600', fontSize: '24px' }}>
-        Acompanhamento Fases de Abastecimento
-      </Text>
-      <button onClick={createPlate}>Criar placa</button>
+      <ContainerText>
+        <Text css={{ fontWeight: '600', fontSize: '24px' }}>
+          Acompanhamento Fases de Abastecimento
+        </Text>
+        {/* <button onClick={createPlate}>Criar placa</button> */}
+      </ContainerText>
       <ContainerFases>
         <KanBanCard>
           Entrada
