@@ -79,12 +79,12 @@ export const TitleTime = styled('p', {
   padding: '2px 0px',
 })
 
-export const Description = styled('p', {
+export const Description = styled('span', {
   marginLeft: '5px',
   color: '$textlowgray',
 })
 
-export const ContainerP = styled('p', {
+export const ContainerP = styled('span', {
   display: 'flex',
   flexDirection: 'row',
   padding: '0px 42px',
@@ -198,7 +198,7 @@ export const NumPlaca = styled('div', {
   fontFamily: "'Play', sans-serif",
 })
 
-export const TextBrasil = styled('p', {
+export const TextBrasil = styled('span', {
   display: 'flex',
   justifyContent: 'center',
   color: '$white',

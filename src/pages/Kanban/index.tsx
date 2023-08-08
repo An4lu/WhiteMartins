@@ -5,13 +5,14 @@ import { Text } from '../../components/Text'
 import { ContainerFases, StyledFlex } from './styles'
 import { Modal } from '../../components/Modal'
 
-import {
-  DynamoDBClient,
-  ScanCommand,
-  ScanCommandInput,
-} from '@aws-sdk/client-dynamodb'
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
 
-import { DynamoDBDocument, PutCommand } from '@aws-sdk/lib-dynamodb'
+import {
+  ScanCommandInput,
+  DynamoDBDocument,
+  PutCommand,
+  ScanCommand,
+} from '@aws-sdk/lib-dynamodb'
 
 type StatusType =
   | 'AguardandoCadastro'
@@ -21,6 +22,7 @@ type StatusType =
   | 'inicial'
 
 export interface PlacaInfo {
+  id: string
   placa: string
   tempo: string
   company: string
@@ -53,9 +55,9 @@ export interface PlacaInfo {
 
 interface Parameter {
   id: string
-  plate: { S: string }
+  plate: string
   created_at: string
-  status: { S: string }
+  status: string
 }
 
 const client = new DynamoDBClient({
@@ -97,7 +99,7 @@ export const Kanban = () => {
     }
 
     const updatedPlacasData = placasData.map((placaInfo) =>
-      placaInfo.placa === selectedPlaca?.placa
+      placaInfo.id === selectedPlaca?.id
         ? { ...placaInfo, stage: newStage as PlacaInfo['stage'] }
         : placaInfo,
     )
@@ -107,6 +109,7 @@ export const Kanban = () => {
 
   const [placasData, setPlacasData] = useState<PlacaInfo[]>([
     {
+      id: '1',
       placa: 'SF7SF6',
       tempo: '10',
       company: 'Empresa A',
@@ -130,102 +133,6 @@ export const Kanban = () => {
       waittime: '3 h',
       stage: 'Entrada',
     },
-    {
-      placa: 'OI9SD4',
-      tempo: '30',
-      company: 'Empresa B',
-      NF: 67890,
-      order: 923847,
-      driver: 'Ana L. Dourado',
-      CNH: 123456789,
-      goal: 'Meta B',
-      product: 'Produto B',
-      inicialweighing: '08:00 am',
-      finalweighing: '200kg',
-      measure: '10 Toneladas',
-      loadingvolume: '200 m³',
-      controllerentry: 'X',
-      controllerweighing: 'Y',
-      controllerloading: 'Z',
-      controllerexited: 'W',
-      status: 'Liberado',
-      entrance: '09:00 am',
-      exit: '6:30 pm',
-      waittime: '10 min',
-      stage: 'Entrada',
-    },
-    {
-      placa: 'SHJD5U',
-      tempo: '15',
-      company: 'Empresa S',
-      NF: 12345,
-      order: 539458,
-      driver: 'Silvio Armando',
-      CNH: 955656391,
-      goal: 'Carregamento de Tanque',
-      product: 'Produto C',
-      inicialweighing: '08:39 am',
-      finalweighing: '08:39 am',
-      measure: '10 Toneladas',
-      loadingvolume: '08:39 am',
-      controllerentry: '08:39 am',
-      controllerweighing: '08:39 am',
-      controllerloading: '08:39 am',
-      controllerexited: '08:39 am',
-      status: 'Revisão',
-      entrance: '12:23 am',
-      exit: '3:30 pm',
-      waittime: '3 h',
-      stage: 'Entrada',
-    },
-    {
-      placa: 'KD9UY7',
-      tempo: '60',
-      company: 'Empresa Z',
-      NF: 98377,
-      order: 873564,
-      driver: 'Marcia Oliver',
-      CNH: 123455700,
-      goal: 'Meta G',
-      product: 'Produto D',
-      inicialweighing: '09:00 am',
-      finalweighing: '150kg',
-      measure: '10 Toneladas',
-      loadingvolume: '300 m³',
-      controllerentry: 'X',
-      controllerweighing: 'Y',
-      controllerloading: 'Z',
-      controllerexited: 'W',
-      status: 'Liberado',
-      entrance: '09:00 am',
-      exit: '6:30 pm',
-      waittime: '10 min',
-      stage: 'Entrada',
-    },
-    {
-      placa: 'ASD123',
-      tempo: '15',
-      company: 'Empresa C',
-      NF: 54321,
-      order: 345678,
-      driver: 'Carlos Silva',
-      CNH: 87654321,
-      goal: 'Meta C',
-      product: 'Produto E',
-      inicialweighing: '10:15 am',
-      finalweighing: '500kg',
-      measure: '10 Toneladas',
-      loadingvolume: '300 m³',
-      controllerentry: 'A',
-      controllerweighing: 'B',
-      controllerloading: 'C',
-      controllerexited: 'D',
-      status: 'AguardandoCadastro',
-      entrance: '10:15 am',
-      exit: '2:45 pm',
-      waittime: '4 h',
-      stage: 'Entrada',
-    },
   ])
 
   useEffect(() => {
@@ -238,10 +145,32 @@ export const Kanban = () => {
       const response = await ddbDocClient.send(command)
       const parameters = response.Items as unknown as Parameter[]
 
+      console.log(parameters)
+
       const placasFromParameters = parameters.map((param) => ({
-        placa: param.plate.S,
-        status: param.status.S as StatusType,
-        stage: 'Entrada',
+        id: param.id,
+        placa: param.plate,
+        status: param.status as StatusType,
+        stage: 'Entrada' as const,
+        tempo: '10',
+        company: 'Empresa A',
+        NF: 12345,
+        order: 539458,
+        driver: 'João P. Freitas',
+        CNH: 987654321,
+        goal: 'Carregamento de Tanque',
+        product: 'Nitrogênio',
+        inicialweighing: '10:40 am',
+        finalweighing: '120kg',
+        measure: '10 Toneladas',
+        loadingvolume: '300 m³',
+        controllerentry: 'Leandra Silva',
+        controllerweighing: '08:39 am',
+        controllerloading: '08:39 am',
+        controllerexited: '08:39 am',
+        entrance: '12:23 am',
+        exit: '3:30 pm',
+        waittime: '3 h',
       }))
 
       setPlacasData(placasFromParameters)
@@ -254,10 +183,10 @@ export const Kanban = () => {
     const params = {
       TableName: 'license_plates',
       Item: {
-        id: '5',
-        plate: 'SF7SF6',
+        id: '6',
+        plate: 'O9S8DF',
         created_at: '2021-10-10',
-        status: 'AguardandoCadastro',
+        status: 'inicial',
       },
     }
 
@@ -280,9 +209,9 @@ export const Kanban = () => {
           Entrada
           {placasData
             .filter((placaInfo) => placaInfo.stage === 'Entrada')
-            .map((placaInfo, index) => (
+            .map((placaInfo) => (
               <PlacaCard
-                key={index}
+                key={placaInfo.id}
                 placa={placaInfo.placa}
                 tempo={placaInfo.tempo}
                 driver={placaInfo.driver}
@@ -296,9 +225,9 @@ export const Kanban = () => {
           Pesagem Inicial
           {placasData
             .filter((placaInfo) => placaInfo.stage === 'Pesagem Inicial')
-            .map((placaInfo, index) => (
+            .map((placaInfo) => (
               <PlacaCard
-                key={index}
+                key={placaInfo.id}
                 placa={placaInfo.placa}
                 tempo={placaInfo.tempo}
                 driver={placaInfo.driver}
@@ -312,9 +241,9 @@ export const Kanban = () => {
           Fila
           {placasData
             .filter((placaInfo) => placaInfo.stage === 'Fila')
-            .map((placaInfo, index) => (
+            .map((placaInfo) => (
               <PlacaCard
-                key={index}
+                key={placaInfo.id}
                 placa={placaInfo.placa}
                 tempo={placaInfo.tempo}
                 driver={placaInfo.driver}
@@ -328,9 +257,9 @@ export const Kanban = () => {
           Carregamento
           {placasData
             .filter((placaInfo) => placaInfo.stage === 'Carregamento')
-            .map((placaInfo, index) => (
+            .map((placaInfo) => (
               <PlacaCard
-                key={index}
+                key={placaInfo.id}
                 placa={placaInfo.placa}
                 tempo={placaInfo.tempo}
                 driver={placaInfo.driver}
@@ -344,9 +273,9 @@ export const Kanban = () => {
           Pesagem Final
           {placasData
             .filter((placaInfo) => placaInfo.stage === 'Pesagem Final')
-            .map((placaInfo, index) => (
+            .map((placaInfo) => (
               <PlacaCard
-                key={index}
+                key={placaInfo.id}
                 placa={placaInfo.placa}
                 tempo={placaInfo.tempo}
                 driver={placaInfo.driver}
@@ -360,9 +289,9 @@ export const Kanban = () => {
           Saída
           {placasData
             .filter((placaInfo) => placaInfo.stage === 'Saída')
-            .map((placaInfo, index) => (
+            .map((placaInfo) => (
               <PlacaCard
-                key={index}
+                key={placaInfo.id}
                 placa={placaInfo.placa}
                 tempo={placaInfo.tempo}
                 driver={placaInfo.driver}
