@@ -55,7 +55,12 @@ interface ModalProps {
   controllerexited: string
   entrance: string
   exit: string
-  status?: 'AguardandoCadastro' | 'Aguardando' | 'Liberado' | 'Revisão'
+  status?:
+    | 'AguardandoCadastro'
+    | 'Aguardando'
+    | 'Liberado'
+    | 'Revisão'
+    | 'inicial'
   waittime: string
   selectedPlaca?: PlacaInfo
   onStageChange?: (newStage: string) => void

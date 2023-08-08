@@ -69,6 +69,9 @@ export const Status = styled(
         Liberado: {
           backgroundColor: '$green',
         },
+        inicial: {
+          backgroundColor: '$green',
+        },
       },
     },
   },

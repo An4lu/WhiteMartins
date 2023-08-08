@@ -13,7 +13,12 @@ import {
 
 import { DynamoDBDocument, PutCommand } from '@aws-sdk/lib-dynamodb'
 
-type StatusType = 'AguardandoCadastro' | 'Aguardando' | 'Revisão' | 'Liberado'
+type StatusType =
+  | 'AguardandoCadastro'
+  | 'Aguardando'
+  | 'Revisão'
+  | 'Liberado'
+  | 'inicial'
 
 export interface PlacaInfo {
   placa: string
@@ -48,9 +53,9 @@ export interface PlacaInfo {
 
 interface Parameter {
   id: string
-  plate: string
+  plate: { S: string }
   created_at: string
-  status: string
+  status: { S: string }
 }
 
 const client = new DynamoDBClient({
@@ -230,12 +235,16 @@ export const Kanban = () => {
       }
 
       const command = new ScanCommand(params)
-
       const response = await ddbDocClient.send(command)
-
       const parameters = response.Items as unknown as Parameter[]
 
-      console.log(parameters)
+      const placasFromParameters = parameters.map((param) => ({
+        placa: param.plate.S,
+        status: param.status.S as StatusType,
+        stage: 'Entrada',
+      }))
+
+      setPlacasData(placasFromParameters)
     }
 
     getPlacas()
