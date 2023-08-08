@@ -2,7 +2,7 @@ import estadosBrasil from './estadosBrasil.json'
 import { CheckBox } from '../Checkbox'
 import { InputSearch } from '../InputSearch'
 import { Line } from '../Modal/styles'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { DashboardCardSecond } from '../../components/DashboardCardSecond'
 import { DashboardCard } from '../../components/DashboardCard/index'
 import { Text } from '../../components/Text'
@@ -65,11 +65,7 @@ export const DashboardPlant = () => {
     cilindros: 0,
   })
 
-  useEffect(() => {
-    calculateAverages()
-  }, [selectedStates])
-
-  const calculateAverages = () => {
+  const calculateAverages = useCallback(() => {
     const filteredStates = estadosBrasil.filter(
       (estado) => selectedStates[estado.id],
     )
@@ -121,7 +117,11 @@ export const DashboardPlant = () => {
       carretas: totalValues.carretas,
       cilindros: totalValues.cilindros,
     })
-  }
+  }, [selectedStates])
+
+  useEffect(() => {
+    calculateAverages()
+  }, [calculateAverages])
 
   const [selectAllStates, setSelectAllStates] = useState(true)
   const [searchValueLeft, setSearchValueLeft] = useState('')
