@@ -53,7 +53,6 @@ export const ContainerRight = styled('div', {
 export const ContainerVolume = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-
   backgroundColor: '$white',
   borderRadius: '10px',
   width: '100%',

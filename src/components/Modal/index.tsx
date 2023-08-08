@@ -9,12 +9,10 @@ import {
   Line,
   TitleLine,
   Description,
-  ContainerItem,
   ContainerText,
   TitleDesc,
   SecondLine,
   ContainerPlaca,
-  PlacaItem,
   ContainerStatus,
   PlacaBrasil,
   NumPlaca,
@@ -23,12 +21,18 @@ import {
   ThirdLine,
   String,
   ContainerSelect,
-  LastLine,
+  Right,
+  Left,
+  ContainerP,
+  Status,
+  ContainerTime,
+  RightLine,
+  TitleTime,
 } from './styles'
 import { FileText, X } from '@phosphor-icons/react'
-import { Status } from '../PlacaCard/styles'
 import Select from '../Select'
 import { Button } from '../Button'
+import { PlacaInfo } from '../../pages/Kanban'
 
 interface ModalProps {
   isOpen: boolean
@@ -40,15 +44,21 @@ interface ModalProps {
   driver: string
   CNH: number
   goal: string
+  product: string
+  inicialweighing: string
   finalweighing: string
+  measure: string
+  loadingvolume: string
   controllerentry: string
   controllerweighing: string
   controllerloading: string
   controllerexited: string
   entrance: string
   exit: string
-  status?: string
+  status?: 'AguardandoCadastro' | 'Aguardando' | 'Liberado' | 'Revisão'
   waittime: string
+  selectedPlaca?: PlacaInfo
+  onStageChange?: (newStage: string) => void
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -61,7 +71,11 @@ export const Modal: FC<ModalProps> = ({
   driver,
   CNH,
   goal,
+  product,
+  inicialweighing,
   finalweighing,
+  measure,
+  loadingvolume,
   controllerentry,
   controllerweighing,
   controllerloading,
@@ -70,38 +84,39 @@ export const Modal: FC<ModalProps> = ({
   exit,
   status,
   waittime,
+  onStageChange,
 }) => {
-  const [selectedStatus, setSelectedStatus] = useState<{
-    value: string
-    label: string
-  } | null>(null)
-
-  const statusOptions = [
-    { value: 'Entrada', label: 'Entrada' },
-    { value: 'PesagemInicial', label: 'Pesagem Inicial' },
-    { value: 'Fila', label: 'Fila' },
-    { value: 'Carregamento', label: 'Carregamento' },
-    { value: 'PesagemFinal', label: 'Pesagem Final' },
-    { value: 'Saída', label: 'Saída' },
-  ]
-  const handleStatusChange = (value: string) => {
-    const selectedOption = statusOptions.find(
-      (option) => option.value === value,
-    )
-    if (selectedOption) {
-      setSelectedStatus(selectedOption)
-    } else {
-      setSelectedStatus(null)
-    }
-  }
+  const [selectedStage, setSelectedStage] = useState<string>('')
 
   if (!isOpen) {
     return null
   }
 
+  const stageOptions = [
+    { value: 'Entrada', label: 'Entrada' },
+    { value: 'Pesagem Inicial', label: 'Pesagem Inicial' },
+    { value: 'Fila', label: 'Fila' },
+    { value: 'Carregamento', label: 'Carregamento' },
+    { value: 'Pesagem Final', label: 'Pesagem Final' },
+    { value: 'Saída', label: 'Saída' },
+  ]
+
+  const handleStageChange = (value: string) => {
+    setSelectedStage(value)
+  }
+
+  const handleMoveToStage = () => {
+    if (onStageChange && selectedStage) {
+      onStageChange(selectedStage)
+    }
+
+    if (onClose) {
+      onClose()
+    }
+  }
   return (
     <Overlay onClick={onClose}>
-      <Dialog onClick={(e) => e.stopPropagation()}>
+      <Dialog onClick={(e: React.MouseEvent) => e.stopPropagation()}>
         <FirstLine>
           <TextPlaca>{placa}</TextPlaca>
           <X onClick={onClose} size={27} color="#00AD6C" />
@@ -112,7 +127,22 @@ export const Modal: FC<ModalProps> = ({
             <FileText size={26} color="#00AD6C" />
             Detalhes
           </ContainerText>
-          <ContainerItem>
+        </TitleLine>
+        <ContainerP>
+          <ContainerPlaca>
+            <PlacaBrasil>
+              <Image src={mercosulSvg} alt="Mercosul" />
+              <TextBrasil>BRASIL</TextBrasil>
+              <Image src={brasilPng} alt="Brasil" />
+            </PlacaBrasil>
+            <NumPlaca>{placa}</NumPlaca>
+          </ContainerPlaca>
+          <ContainerStatus>
+            Status {status && <Status status={status}>{status}</Status>}
+          </ContainerStatus>
+        </ContainerP>
+        <SecondLine>
+          <Right>
             <TitleDesc>
               Empresa: <Description> {company}</Description>
             </TitleDesc>
@@ -129,71 +159,73 @@ export const Modal: FC<ModalProps> = ({
               Motorista: <Description> {driver}</Description>
             </TitleDesc>
             <TitleDesc>
-              CNH: <Description> {CNH}</Description>
+              CNH: <Description>{CNH}</Description>
             </TitleDesc>
             <TitleDesc>
               Objetivo: <Description> {goal}</Description>
             </TitleDesc>
             <TitleDesc>
-              Pesagem Final: <Description> {finalweighing}</Description>
+              Produto: <Description>{product}</Description>
+            </TitleDesc>
+          </Right>
+          <Left>
+            <TitleDesc>
+              Pesagem Inicial: <Description>{inicialweighing}</Description>
             </TitleDesc>
             <TitleDesc>
-              Controlador Entrada: <Description> {controllerentry}</Description>
+              Pesagem Final: <Description>{finalweighing}</Description>
+            </TitleDesc>
+            <TitleDesc>
+              Medida: <Description>{measure}</Description>
+            </TitleDesc>
+            <TitleDesc>
+              Volume de Carregamento: <Description>{loadingvolume}</Description>
+            </TitleDesc>
+            <TitleDesc>
+              Controlador Entrada: <Description>{controllerentry}</Description>
             </TitleDesc>
             <TitleDesc>
               Controlador Pesagem:
-              <Description> {controllerweighing}</Description>
+              <Description>{controllerweighing}</Description>
             </TitleDesc>
             <TitleDesc>
               Controlador Carregamento:
-              <Description> {controllerloading}</Description>
+              <Description>{controllerloading}</Description>
             </TitleDesc>
-            <LastLine>
-              <TitleDesc>
-                Controlador Saída:
-                <Description> {controllerexited}</Description>
-              </TitleDesc>
-              <TitleDesc>
-                Tempo de Espera:
-                <Description> {waittime}</Description>
-              </TitleDesc>
-            </LastLine>
-          </ContainerItem>
-        </TitleLine>
-        <SecondLine>
-          <ContainerStatus>
-            Status: <Status> {status}</Status>
-          </ContainerStatus>
-          <PlacaItem>
             <TitleDesc>
-              Horário Entrada: <Description> {entrance}</Description>
+              Controlador Saída: <Description>{controllerexited}</Description>
             </TitleDesc>
-          </PlacaItem>
-          <PlacaItem>
-            <TitleDesc>
-              Horário Saída: <Description> {exit}</Description>
-            </TitleDesc>
-          </PlacaItem>
-          <ContainerPlaca>
-            <PlacaBrasil>
-              <Image src={mercosulSvg} alt="Mercosul" />
-              <TextBrasil>BRASIL</TextBrasil>
-              <Image src={brasilPng} alt="Brasil" />
-            </PlacaBrasil>
-            <NumPlaca>{placa}</NumPlaca>
-          </ContainerPlaca>
+          </Left>
         </SecondLine>
+        <ContainerTime>
+          <RightLine>
+            <TitleTime>
+              Horário Entrada: <Description> {entrance}</Description>
+            </TitleTime>
+            <TitleTime>
+              Horário Saída: <Description> {exit}</Description>
+            </TitleTime>
+          </RightLine>
+          <TitleTime>
+            Tempo de Espera: <Description>{waittime}</Description>
+          </TitleTime>
+        </ContainerTime>
         <Line />
         <ThirdLine>
           <String>Mover para</String>
-          {/* <ContainerSelect> */}
-          <Select
-            onValueChange={handleStatusChange}
-            id="status-select"
-            options={statusOptions}
-          />
-          <Button css={{ width: '70px' }}>Mover</Button>
-          {/* </ContainerSelect> */}
+          <ContainerSelect>
+            <Select
+              onValueChange={handleStageChange}
+              id="select"
+              options={stageOptions}
+            />
+            <Button
+              css={{ width: '60px', height: '28px' }}
+              onClick={handleMoveToStage}
+            >
+              Mover
+            </Button>
+          </ContainerSelect>
         </ThirdLine>
       </Dialog>
     </Overlay>

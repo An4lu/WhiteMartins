@@ -4,16 +4,24 @@ import { Line } from '../Modal/styles'
 import { useState } from 'react'
 import {
   CheckboxItem,
+  ContCheck,
   ContInput,
+  ContainerAdress,
   ContainerCard,
   ContainerSearch,
+  DivCheck,
   FirstLine,
+  Item2Check,
+  ItemCheck,
   ScrollContainer,
   SearchLeft,
   SearchRight,
   Title,
+  TitleCheck,
+  TitleSecond,
 } from './styles'
 import { Button } from '../Button'
+import { MapPin } from '@phosphor-icons/react'
 
 const estadosBrasil = [
   {
@@ -232,23 +240,101 @@ export const DashboardPlant = () => {
   const [selectedStates, setSelectedStates] = useState<Record<string, boolean>>(
     {},
   )
+  const [selectAllStates, setSelectAllStates] = useState(false)
   const [searchValueLeft, setSearchValueLeft] = useState('')
   const [searchValueRight, setSearchValueRight] = useState('')
+  const [selectedCities, setSelectedCities] = useState<
+    Array<{
+      nome: string
+      enderecos: Array<{ nome: string; endereco: string }>
+    }>
+  >([])
+  const [selectedAddresses, setSelectedAddresses] = useState<
+    Record<string, boolean>
+  >({})
 
   const filteredStatesLeft = estadosBrasil.filter((estado) =>
     estado.nome.toLowerCase().includes(searchValueLeft.toLowerCase()),
   )
-
-  // const filteredStatesRight = estadosBrasil.filter((estado) =>
-  //   estado.nome.toLowerCase().includes(searchValueRight.toLowerCase()),
-  // )
 
   const handleCheckChange = (id: string, value: boolean) => {
     setSelectedStates({
       ...selectedStates,
       [id]: value,
     })
+
+    const selectedState = estadosBrasil.find((estado) => estado.id === id)
+    if (selectedState) {
+      if (value) {
+        setSelectedCities(selectedCities.concat(selectedState.cidades))
+      } else {
+        const citiesToRemove = new Set(
+          selectedState.cidades.map((cidade) => cidade.nome),
+        )
+        setSelectedCities(
+          selectedCities.filter((cidade) => !citiesToRemove.has(cidade.nome)),
+        )
+        const newSelectedAddresses = { ...selectedAddresses }
+        selectedState.cidades.forEach((cidade) => {
+          cidade.enderecos.forEach((endereco) => {
+            delete newSelectedAddresses[endereco.endereco]
+          })
+        })
+        setSelectedAddresses(newSelectedAddresses)
+      }
+    }
   }
+
+  const filteredAddresses = estadosBrasil
+    .filter((estado) => selectedStates[estado.id])
+    .flatMap((estado) =>
+      estado.cidades.flatMap((cidade) =>
+        cidade.enderecos.filter((endereco) =>
+          endereco.nome.toLowerCase().includes(searchValueRight.toLowerCase()),
+        ),
+      ),
+    )
+
+  const handleToggleAll = () => {
+    const newSelectedAddresses = { ...selectedAddresses }
+    const markAll = !filteredAddresses.every(
+      (endereco) => selectedAddresses[endereco.endereco],
+    )
+
+    filteredAddresses.forEach((endereco) => {
+      newSelectedAddresses[endereco.endereco] = markAll
+    })
+
+    setSelectedAddresses(newSelectedAddresses)
+
+    setSelectAllRight(markAll)
+  }
+
+  const handleCheckChangeAll = (cidade: any, value: boolean) => {
+    const newSelectedAddresses = { ...selectedAddresses }
+    cidade.enderecos.forEach((endereco: any) => {
+      newSelectedAddresses[endereco.endereco] = value
+    })
+    setSelectedAddresses(newSelectedAddresses)
+
+    setSelectAllRight(value)
+  }
+
+  const handleToggleAllStates = (value: boolean) => {
+    setSelectAllStates(value)
+    const newSelectedStates: Record<string, boolean> = {}
+    estadosBrasil.forEach((estado) => {
+      newSelectedStates[estado.id] = value
+    })
+    setSelectedStates(newSelectedStates)
+    if (value) {
+      setSelectedCities(estadosBrasil.flatMap((estado) => estado.cidades))
+    } else {
+      setSelectedCities([])
+    }
+  }
+
+  const [selectAllRight, setSelectAllRight] = useState(false)
 
   return (
     <ContainerCard>
@@ -262,6 +348,15 @@ export const DashboardPlant = () => {
               onChange={setSearchValueLeft}
             />
             <ScrollContainer>
+              <CheckboxItem>
+                <CheckBox
+                  id="selectAll"
+                  onValueChange={handleToggleAllStates}
+                  checked={selectAllStates}
+                >
+                  Selecionar Todos
+                </CheckBox>
+              </CheckboxItem>
               {filteredStatesLeft.map((estado) => (
                 <CheckboxItem key={estado.id}>
                   <CheckBox
@@ -285,11 +380,56 @@ export const DashboardPlant = () => {
               />
               <Button
                 css={{ fontSize: '12px', width: '150px', height: '30px' }}
+                onClick={handleToggleAll}
               >
                 Marcar Todos
               </Button>
             </ContInput>
-            <ScrollContainer></ScrollContainer>
+            <ScrollContainer>
+              {selectedCities.map((cidade, cityIndex) => (
+                <ContCheck key={cityIndex}>
+                  <TitleCheck>
+                    <CheckBox
+                      id={cityIndex.toString()}
+                      onValueChange={(value) =>
+                        handleCheckChangeAll(cidade, value)
+                      }
+                      checked={selectAllRight}
+                    >
+                      <TitleSecond>{cidade.nome}</TitleSecond>
+                    </CheckBox>
+                  </TitleCheck>
+                  {cidade.enderecos
+                    .filter((endereco) =>
+                      endereco.nome
+                        .toLowerCase()
+                        .includes(searchValueRight.toLowerCase()),
+                    )
+                    .map((endereco, index) => (
+                      <CheckboxItem key={index}>
+                        <DivCheck>
+                          <CheckBox
+                            id={endereco.endereco}
+                            onValueChange={(value) => {
+                              setSelectedAddresses({
+                                ...selectedAddresses,
+                                [endereco.endereco]: value,
+                              })
+                            }}
+                            checked={selectedAddresses[endereco.endereco]}
+                          >
+                            <ContainerAdress>
+                              <ItemCheck>{endereco.nome}</ItemCheck>
+                              <Item2Check>{endereco.endereco}</Item2Check>
+                            </ContainerAdress>
+                          </CheckBox>
+                          <MapPin size={20} color="#00AD6C" />
+                        </DivCheck>
+                      </CheckboxItem>
+                    ))}
+                </ContCheck>
+              ))}
+            </ScrollContainer>
           </SearchRight>
         </ContainerSearch>
       </FirstLine>

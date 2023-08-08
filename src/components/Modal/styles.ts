@@ -17,7 +17,7 @@ export const Dialog = styled('div', {
   backgroundColor: '$white',
   borderRadius: '8px',
   minHeight: '200px',
-  width: '555px',
+  width: '650px',
   position: 'relative',
 })
 
@@ -45,7 +45,7 @@ export const Line = styled('div', {
 export const TitleLine = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  padding: '12px 40px',
+  padding: '5px 40px',
 })
 
 export const ContainerText = styled('p', {
@@ -53,25 +53,11 @@ export const ContainerText = styled('p', {
   flexDirection: 'row',
   alignItems: 'center',
   paddingTop: '10px',
+  paddingBottom: '10px',
   gap: '5px',
   fontSize: '20px',
   fontWeight: '600',
   color: '$textlowgray',
-})
-
-export const LastLine = styled('div', {
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-})
-
-export const ContainerItem = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
-  gap: '10px',
-  padding: '10px 3px',
-  fontSize: '14px',
 })
 
 export const TitleDesc = styled('p', {
@@ -79,6 +65,18 @@ export const TitleDesc = styled('p', {
   flexDirection: 'row',
   fontWeight: '500',
   color: '$graytitle',
+  fontSize: '12px',
+  padding: '6px 0px',
+})
+
+export const TitleTime = styled('p', {
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'end',
+  fontWeight: '500',
+  color: '$graytitle',
+  fontSize: '12px',
+  padding: '2px 0px',
 })
 
 export const Description = styled('p', {
@@ -86,13 +84,41 @@ export const Description = styled('p', {
   color: '$textlowgray',
 })
 
+export const ContainerP = styled('p', {
+  display: 'flex',
+  flexDirection: 'row',
+  padding: '0px 42px',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  marginBottom: '12px',
+})
+
 export const SecondLine = styled('div', {
   display: 'flex',
+  flexDirection: 'row',
+  padding: '10px 42px',
+})
+
+export const Right = styled('div', {
+  width: '50%',
+})
+
+export const Left = styled('div', {
+  width: '50%',
+})
+
+export const ContainerTime = styled('div', {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  padding: '10px 42px',
+  marginBottom: '5px',
+})
+
+export const RightLine = styled('div', {
+  display: 'flex',
   flexDirection: 'column',
-  position: 'absolute',
-  zIndex: 999,
-  marginTop: '-378px',
-  marginLeft: '324px',
+  width: '50%',
 })
 
 export const ContainerStatus = styled('div', {
@@ -104,20 +130,19 @@ export const ContainerStatus = styled('div', {
   padding: '10px 0px',
   color: '$textlowgray',
   fontWeight: '700',
-  fontSize: '14px',
+  fontSize: '15px',
 })
 
 export const ContainerPlaca = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  width: '189px',
+  width: '190px',
   height: '64px',
   color: '$blue',
   border: '4px solid $blue',
   borderRadius: '6px',
   backgroundColor: '$white',
-  marginTop: '8px',
 })
 
 export const PlacaBrasil = styled('div', {
@@ -127,16 +152,46 @@ export const PlacaBrasil = styled('div', {
   width: '100%',
   height: '100%',
   backgroundColor: '$blue',
-  gap: '5px',
+  padding: '1px',
 })
+
+export const Status = styled(
+  'div',
+  {
+    gap: '4px',
+    color: '$white',
+    fontSize: '13px',
+    fontWeight: '500',
+    letterSpacing: '0.6px',
+    borderRadius: '4px',
+    padding: '2px 13px',
+  },
+  {
+    variants: {
+      status: {
+        AguardandoCadastro: {
+          backgroundColor: '$bluecard',
+        },
+        Aguardando: {
+          backgroundColor: '$yellow',
+        },
+        Revisão: {
+          backgroundColor: '$red',
+        },
+        Liberado: {
+          backgroundColor: '$green',
+        },
+      },
+    },
+  },
+)
 
 export const NumPlaca = styled('div', {
   display: 'flex',
   justifyContent: 'center',
-  height: '150px',
+  marginTop: '-3px',
   fontSize: '36px',
   fontWeight: '700',
-  letterSpacing: '0.8px',
   fontFamily: "'Play', sans-serif",
 })
 
@@ -153,11 +208,6 @@ export const TextBrasil = styled('p', {
 export const Image = styled('img', {
   width: '22px',
   height: '14px',
-})
-
-export const PlacaItem = styled('div', {
-  fontSize: '14px',
-  padding: '4px 0px',
 })
 
 export const ThirdLine = styled('div', {
@@ -181,4 +231,5 @@ export const ContainerSelect = styled('div', {
   width: '100%',
   height: '100%',
   gap: '8px',
+  padding: '6px 0px',
 })

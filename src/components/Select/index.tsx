@@ -1,40 +1,64 @@
-import { useState, useEffect, forwardRef } from 'react'
-import ReactSelect from 'react-select/creatable'
-import { ContainerSelect, colorStyles } from './styles'
+import React, { useState, useRef } from 'react'
+import { ContainerSelect, StyledSelect, ContOption, Dropdown } from './styles'
+import { CaretDown } from '@phosphor-icons/react'
+
+interface Option {
+  value: string
+  label: string
+}
 
 interface SelectProps {
   onValueChange: (value: string) => void
   id: string
-  options: { value: string; label: string }[]
+  options: Option[]
+  defaultValue?: string | null
 }
 
-const Select = forwardRef<any, SelectProps>((props: SelectProps, ref: any) => {
-  const { options, onValueChange, id } = props
-  const [selectOptions, setSelectOptions] = useState(options)
+const Select: React.FC<SelectProps> = ({
+  options,
+  onValueChange,
+  id,
+  defaultValue,
+}) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [selectedOption, setSelectedOption] = useState(defaultValue || '')
+  const ref = useRef(null)
 
-  useEffect(() => {
-    setSelectOptions(options)
-  }, [options])
+  const handleToggle = () => {
+    setIsOpen(!isOpen)
+  }
 
-  function handleChange(selectedOption: any) {
-    onValueChange(selectedOption.value)
+  const handleChange = (value: string) => {
+    setSelectedOption(value)
+    onValueChange(value)
+    setIsOpen(false)
   }
 
   return (
-    // <ContainerSelect>
-    <ReactSelect
-      ref={ref}
-      isSearchable={false}
-      onChange={handleChange}
-      options={selectOptions}
-      styles={colorStyles}
-      placeholder=""
-      id={id}
-    />
-    // </ContainerSelect>
+    <ContainerSelect ref={ref} id={id}>
+      <StyledSelect onClick={handleToggle}>
+        <div>
+          {options.find((option) => option.value === selectedOption)?.label ||
+            ''}
+        </div>
+        <div>
+          <CaretDown
+            size={22}
+            color="#BBBBBB"
+            style={{ transform: isOpen ? 'rotate(180deg)' : '' }}
+          />
+        </div>
+      </StyledSelect>
+      {isOpen && (
+        <Dropdown>
+          {options.map((option, index) => (
+            <ContOption key={index} onClick={() => handleChange(option.value)}>
+              {option.label}
+            </ContOption>
+          ))}
+        </Dropdown>
+      )}
+    </ContainerSelect>
   )
-})
-
-Select.displayName = 'Select'
-
+}
 export default Select

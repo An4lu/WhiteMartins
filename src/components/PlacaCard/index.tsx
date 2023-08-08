@@ -14,7 +14,7 @@ interface PlacaProps {
   tempo: string
   driver: string
   order: number
-  status: 'AguardandoCadastro' | 'Aguardando' | 'Liberado' | 'Revisão'
+  status?: 'AguardandoCadastro' | 'Aguardando' | 'Liberado' | 'Revisão'
   onClick?: () => void
 }
 
