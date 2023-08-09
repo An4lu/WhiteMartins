@@ -258,22 +258,46 @@ export const DashboardPlant = () => {
         <DashboardCard
           texttitle="Tempo Médio de Cadastro"
           timemin={averageData.tempocadastro}
-          state="green"
+          state={
+            averageData.tempocadastro < 30
+              ? 'green'
+              : averageData.tempocadastro >= 50
+              ? 'red'
+              : 'yellow'
+          }
         />
         <DashboardCard
           texttitle="Tempo Médio de Carregamento"
           timemin={averageData.tempocarregamento}
-          state="yellow"
+          state={
+            averageData.tempocarregamento < 30
+              ? 'green'
+              : averageData.tempocarregamento >= 50
+              ? 'red'
+              : 'yellow'
+          }
         />
         <DashboardCard
           texttitle="Tempo por Etapa"
           timemin={averageData.tempoetapa}
-          state="green"
+          state={
+            averageData.tempoetapa < 30
+              ? 'green'
+              : averageData.tempoetapa >= 50
+              ? 'red'
+              : 'yellow'
+          }
         />
         <DashboardCard
           texttitle="Tempo Médio de Pesagem"
           timemin={averageData.tempopesagem}
-          state="red"
+          state={
+            averageData.tempopesagem < 30
+              ? 'green'
+              : averageData.tempopesagem >= 50
+              ? 'red'
+              : 'yellow'
+          }
         />
       </FirstLine>
       <SecondLine>
@@ -397,21 +421,39 @@ export const DashboardPlant = () => {
             <ContDiv>
               <CardVolume
                 firstletter="O"
-                state="red"
+                state={
+                  averageData.oxigenio <= 5000
+                    ? 'red'
+                    : averageData.oxigenio >= 10000
+                    ? 'green'
+                    : 'yellow'
+                }
                 element="Oxigênio"
                 number={averageData.oxigenio}
                 totalm={averageData.mediaoxigenio}
               />
               <CardVolume
                 firstletter="N"
-                state="yellow"
+                state={
+                  averageData.nitrogenio <= 5000
+                    ? 'red'
+                    : averageData.nitrogenio >= 10000
+                    ? 'green'
+                    : 'yellow'
+                }
                 element="Nitrogênio"
                 number={averageData.nitrogenio}
                 totalm={averageData.medianitrogenio}
               />
               <CardVolume
                 firstletter="H"
-                state="green"
+                state={
+                  averageData.hidrogenio <= 5000
+                    ? 'red'
+                    : averageData.hidrogenio >= 10000
+                    ? 'green'
+                    : 'yellow'
+                }
                 element="Hidrogênio"
                 number={averageData.hidrogenio}
                 totalm={averageData.mediahidrogenio}
