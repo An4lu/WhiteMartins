@@ -15,7 +15,7 @@ interface ElementsProps {
   firstletter: string
   element: string
   number: number
-  totalm?: string
+  totalm?: number
   state: 'green' | 'yellow' | 'red'
 }
 
@@ -37,7 +37,7 @@ export const CardVolume = ({
           <ContTime state={state}>
             <Min>{number}</Min> <M>m³</M>
           </ContTime>
-          <ContText>{totalm}</ContText>
+          <ContText>Total Ocupado médio é de {totalm}m³</ContText>
         </ContState>
       </DivRight>
     </ContainerVolume>

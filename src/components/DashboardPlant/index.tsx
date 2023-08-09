@@ -64,8 +64,11 @@ export const DashboardPlant = () => {
     carretas: 0,
     cilindros: 0,
     oxigenio: 0,
+    mediaoxigenio: 0,
     nitrogenio: 0,
+    medianitrogenio: 0,
     hidrogenio: 0,
+    mediahidrogenio: 0,
   })
 
   const calculateAverages = useCallback(() => {
@@ -83,8 +86,11 @@ export const DashboardPlant = () => {
         carretas: 0,
         cilindros: 0,
         oxigenio: 0,
+        mediaoxigenio: 0,
         nitrogenio: 0,
+        medianitrogenio: 0,
         hidrogenio: 0,
+        mediahidrogenio: 0,
       })
       return
     }
@@ -99,8 +105,11 @@ export const DashboardPlant = () => {
         carretas: acc.carretas + (estado.carretas || 0),
         cilindros: acc.cilindros + (estado.cilindros || 0),
         oxigenio: acc.oxigenio + (estado.oxigenio || 0),
+        mediaoxigenio: acc.mediaoxigenio + (estado.oxigenio || 0),
         nitrogenio: acc.nitrogenio + (estado.nitrogenio || 0),
+        medianitrogenio: acc.medianitrogenio + (estado.nitrogenio || 0),
         hidrogenio: acc.hidrogenio + (estado.hidrogenio || 0),
+        mediahidrogenio: acc.mediahidrogenio + (estado.hidrogenio || 0),
       }),
       {
         tempocadastro: 0,
@@ -110,8 +119,11 @@ export const DashboardPlant = () => {
         carretas: 0,
         cilindros: 0,
         oxigenio: 0,
+        mediaoxigenio: 0,
         nitrogenio: 0,
+        medianitrogenio: 0,
         hidrogenio: 0,
+        mediahidrogenio: 0,
       },
     )
 
@@ -129,8 +141,17 @@ export const DashboardPlant = () => {
       carretas: totalValues.carretas,
       cilindros: totalValues.cilindros,
       oxigenio: totalValues.oxigenio,
+      mediaoxigenio: parseFloat(
+        (totalValues.mediaoxigenio / totalItems).toFixed(2),
+      ),
       nitrogenio: totalValues.nitrogenio,
+      medianitrogenio: parseFloat(
+        (totalValues.medianitrogenio / totalItems).toFixed(2),
+      ),
       hidrogenio: totalValues.hidrogenio,
+      mediahidrogenio: parseFloat(
+        (totalValues.mediahidrogenio / totalItems).toFixed(2),
+      ),
     })
   }, [selectedStates])
 
@@ -379,20 +400,21 @@ export const DashboardPlant = () => {
                 state="red"
                 element="Oxigênio"
                 number={averageData.oxigenio}
-                totalm="Total ocupado médio é de 10.000m³"
+                totalm={averageData.mediaoxigenio}
               />
               <CardVolume
                 firstletter="N"
                 state="yellow"
                 element="Nitrogênio"
                 number={averageData.nitrogenio}
-                totalm="Total ocupado médio é de 15.000m³"
+                totalm={averageData.medianitrogenio}
               />
               <CardVolume
                 firstletter="H"
                 state="green"
                 element="Hidrogênio"
                 number={averageData.hidrogenio}
+                totalm={averageData.mediahidrogenio}
               />
             </ContDiv>
           </ContainerVolume>
