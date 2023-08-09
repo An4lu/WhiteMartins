@@ -63,6 +63,9 @@ export const DashboardPlant = () => {
     tempopesagem: 0,
     carretas: 0,
     cilindros: 0,
+    oxigenio: 0,
+    nitrogenio: 0,
+    hidrogenio: 0,
   })
 
   const calculateAverages = useCallback(() => {
@@ -79,6 +82,9 @@ export const DashboardPlant = () => {
         tempopesagem: 0,
         carretas: 0,
         cilindros: 0,
+        oxigenio: 0,
+        nitrogenio: 0,
+        hidrogenio: 0,
       })
       return
     }
@@ -92,6 +98,9 @@ export const DashboardPlant = () => {
         tempopesagem: acc.tempopesagem + (estado.tempopesagem || 0),
         carretas: acc.carretas + (estado.carretas || 0),
         cilindros: acc.cilindros + (estado.cilindros || 0),
+        oxigenio: acc.oxigenio + (estado.oxigenio || 0),
+        nitrogenio: acc.nitrogenio + (estado.nitrogenio || 0),
+        hidrogenio: acc.hidrogenio + (estado.hidrogenio || 0),
       }),
       {
         tempocadastro: 0,
@@ -100,6 +109,9 @@ export const DashboardPlant = () => {
         tempopesagem: 0,
         carretas: 0,
         cilindros: 0,
+        oxigenio: 0,
+        nitrogenio: 0,
+        hidrogenio: 0,
       },
     )
 
@@ -116,6 +128,9 @@ export const DashboardPlant = () => {
       ),
       carretas: totalValues.carretas,
       cilindros: totalValues.cilindros,
+      oxigenio: totalValues.oxigenio,
+      nitrogenio: totalValues.nitrogenio,
+      hidrogenio: totalValues.hidrogenio,
     })
   }, [selectedStates])
 
@@ -363,21 +378,21 @@ export const DashboardPlant = () => {
                 firstletter="O"
                 state="red"
                 element="Oxigênio"
-                number={5000}
+                number={averageData.oxigenio}
                 totalm="Total ocupado médio é de 10.000m³"
               />
               <CardVolume
                 firstletter="N"
                 state="yellow"
                 element="Nitrogênio"
-                number={10500}
+                number={averageData.nitrogenio}
                 totalm="Total ocupado médio é de 15.000m³"
               />
               <CardVolume
                 firstletter="H"
                 state="green"
                 element="Hidrogênio"
-                number={8540}
+                number={averageData.hidrogenio}
               />
             </ContDiv>
           </ContainerVolume>

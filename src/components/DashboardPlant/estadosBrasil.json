@@ -8,6 +8,9 @@
       "tempopesagem": 10,
       "carretas": 46,
       "cilindros": 34,
+      "oxigenio": 1790,
+      "nitrogenio": 7950,
+      "hidrogenio": 80,
       "cidades": [
         {
           "nome": "São Paulo",
@@ -34,6 +37,9 @@
       "tempopesagem": 5,
       "carretas": 53,
       "cilindros": 19,
+      "oxigenio": 480,
+      "nitrogenio": 1850,
+      "hidrogenio": 190,
       "cidades": [
         {
           "nome": "Rio de Janeiro",
@@ -60,6 +66,9 @@
       "tempopesagem": 20,
       "carretas": 29,
       "cilindros": 38,
+      "oxigenio": 940,
+      "nitrogenio": 650,
+      "hidrogenio": 180,
       "cidades": [
         {
           "nome": "Belo Horizonte",
@@ -86,6 +95,9 @@
       "tempopesagem": 22,
       "carretas": 40,
       "cilindros": 14,
+      "oxigenio": 350,
+      "nitrogenio": 750,
+      "hidrogenio": 700,
       "cidades": [
         {
           "nome": "Porto Alegre",
@@ -112,6 +124,9 @@
       "tempopesagem": 18,
       "carretas": 37,
       "cilindros": 24,
+      "oxigenio": 570,
+      "nitrogenio": 710,
+      "hidrogenio": 170,
       "cidades": [
         {
           "nome": "Salvador",
